@@ -4,7 +4,7 @@ const { test } = require('node:test')
 const assert = require('node:assert')
 
 const Fastify = require('fastify')
-const Support = require('../../plugins/support')
+const Support = require('../../habit-tracker-api/plugins/support')
 
 test('support works standalone', async (t) => {
   const fastify = Fastify()
