@@ -2,15 +2,16 @@
   "name": "habit-tracker-api",
   "version": "1.0.0",
   "description": "This project was bootstrapped with Fastify-CLI.",
-  "main": "app.js",
+  "main": "happit-tracker-api/app.ts",
   "directories": {
     "doc": "docs",
     "test": "test"
   },
   "scripts": {
+    "build": "tsc -p .",
     "test": "node --test test/**/*.test.js",
-    "start": "fastify start -l info habit-tracker-api/app.js",
-    "dev": "fastify start -w -l info -P habit-tracker-api/app.js",
+    "start": "fastify start -l info built/app.js",
+    "dev": "fastify start -w -l info -P built/app.js",
     "prepare": "husky && husky install"
   },
   "keywords": [],
@@ -25,9 +26,11 @@
     "mongoose": "^8.6.1"
   },
   "devDependencies": {
+    "@types/node": "^22.5.2",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
