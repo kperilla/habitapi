@@ -10,3 +10,6 @@ very specific doc. Idk if it's just me or if everyone else already knows that. V
  - https://www.gobeyond.dev/standard-package-layout/
  - https://www.gobeyond.dev/packages-as-layers/
  - https://go.dev/doc/tutorial/call-module-code
+- Testing was a big headache too. Took forever to realize that it depends 100% on
+the directory structure. main.go HAD to be at the root directory for it to recognize
+the http directory
