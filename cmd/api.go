@@ -3,7 +3,6 @@ package main
 import (
     "net/http"
     "log"
-    "github.com/gorilla/mux"
 )
 
 type APIServer struct {
@@ -16,9 +15,13 @@ func NewAPIServer(addr string) *APIServer {
 }
 
 func (s *APIServer) Run() error {
-    router := mux.NewRouter()
+    router := http.NewServeMux()
     // subrouter := router.PathPrefix("/api/v1").Subrouter()
 
+    server := http.Server{
+        Addr: s.addr,
+        Handler: router,
+    }
     log.Println("Listening on ", s.addr)
-    return http.ListenAndServe(s.addr, router)
+    return server.ListenAndServe()
 }

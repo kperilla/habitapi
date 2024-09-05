@@ -1,11 +1,12 @@
-// Hello world
 package main
 
 import (
-    "fmt"
+    "log"
 )
 
 func main() {
-    // Print hello world
-    fmt.Println("Hello, World!")
+    server := NewAPIServer(":8080")
+    if err := server.Run(); err != nil {
+        log.Fatal(err)
+    }
 }
