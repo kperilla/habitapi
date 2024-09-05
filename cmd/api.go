@@ -17,6 +17,9 @@ func NewAPIServer(addr string) *APIServer {
 func (s *APIServer) Run() error {
     router := http.NewServeMux()
     // subrouter := router.PathPrefix("/api/v1").Subrouter()
+    router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        w.Write([]byte("Healthy!"))
+    })
 
     server := http.Server{
         Addr: s.addr,
