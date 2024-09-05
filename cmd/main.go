@@ -2,11 +2,14 @@ package main
 
 import (
     "log"
+
+    "example.com/habits/http"
 )
 
 func main() {
-    server := NewAPIServer(":8080")
-    if err := server.Run(); err != nil {
+    server := http.NewAPIServer(":8080")
+    var handler http.Handler
+    if err := server.Run(&handler); err != nil {
         log.Fatal(err)
     }
 }
