@@ -3,7 +3,7 @@ package main
 import (
     "log"
 
-    "example.com/habits/http"
+    "habits/http"
 )
 
 func main() {

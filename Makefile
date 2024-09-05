@@ -1,5 +1,5 @@
 build:
-	@go build -o bin/habit-tracker-api ./cmd
+	@go build -o bin/habit-tracker-api .
 
 run: build
 	@./bin/habit-tracker-api
