@@ -30,20 +30,15 @@ func TestGetCreateUserIntegration(t *testing.T) {
     }()
     db := client.Database("test")
 
+    // Create
     userService := &UserService{DB: db}
     user, created_id, err := userService.CreateUser("test")
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
-    // if user.Id == "" {
-    //     t.Errorf("Expected nonempty id, got %s", user.Id)
-    // }
 
-    // cursor, _ := db.Collection("users").Find(nil, bson.D{})
-    // for cursor.Next(nil) {
-    //     log.Println(cursor.Current)
-    // }
+    // Get
     retrievedUser, err := userService.User(created_id)
     if err != nil {
         log.Fatal(err)
@@ -51,6 +46,13 @@ func TestGetCreateUserIntegration(t *testing.T) {
     }
     if retrievedUser.Name != user.Name {
         t.Errorf("Expected user name %s, got %s", user.Name, retrievedUser.Name)
+    }
+
+    // Delete
+    err = userService.DeleteUser(created_id)
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Delete failed")
     }
 }
 

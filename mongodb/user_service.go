@@ -17,15 +17,11 @@ type UserService struct {
 func (s *UserService) User(id string) (*habittrackerapi.User, error) {
     objectId, _ := bson.ObjectIDFromHex(id)
     user := &habittrackerapi.User{}
-    // log.Println(user)
     result := s.DB.Collection("users").FindOne(nil, bson.M{"_id": objectId})
-    // log.Println(result.Raw())
-    // id := result.Raw().(bson.M)["id"].(string)
     err := result.Decode(user)
     if err != nil {
         log.Fatal(err)
     }
-    // log.Println(*user)
     return user, err
 }
 
@@ -37,7 +33,12 @@ func (s *UserService) CreateUser(name string) (*habittrackerapi.User, string, er
         log.Fatal(err)
     }
     id :=res.InsertedID.(bson.ObjectID).Hex()
-    // var id bson.ObjectID = res.InsertedID.(bson.ObjectID)
     user := habittrackerapi.User{Name: name}
     return &user, id, err
+}
+
+func (s *UserService) DeleteUser(id string) error {
+    objectId, _ := bson.ObjectIDFromHex(id)
+    _, err := s.DB.Collection("users").DeleteOne(nil, bson.M{"_id": objectId})
+    return err
 }
