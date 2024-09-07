@@ -2,7 +2,7 @@ build:
 	@go build -o bin/habit-tracker-api .
 
 run: build
-	@./bin/habit-tracker-api
+	@MONGO_URI=mongodb://localhost:27017 ./bin/habit-tracker-api
 
 test:
 	@go test -v ./...
