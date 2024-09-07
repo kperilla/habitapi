@@ -8,7 +8,11 @@ import (
     // "go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func TestGetCreateUser(t *testing.T) {
+func TestGetCreateUserIntegration(t *testing.T) {
+    if testing.Short() {
+        t.Skip("skipping integration test")
+    }
+
     mongo_uri := os.Getenv("MONGO_URI")
     mongo_password := os.Getenv("MONGO_LOCAL_PASSWORD")
     credential := Credential{

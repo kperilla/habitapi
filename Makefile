@@ -6,6 +6,12 @@ build:
 run: build
 	@MONGO_URI=${mongo_uri} ./bin/habit-tracker-api
 
+unit:
+	@MONGO_URI=${mongo_uri} go test -v ./... -short
+
+integration: 
+	@MONGO_URI=${mongo_uri} go test -v ./... -run Integration
+
 test:
 	@MONGO_URI=${mongo_uri} go test -v ./...
 
