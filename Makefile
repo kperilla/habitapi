@@ -1,11 +1,13 @@
+mongo_uri = mongodb://localhost:27017
+
 build:
 	@go build -o bin/habit-tracker-api .
 
 run: build
-	@MONGO_URI=mongodb://localhost:27017 ./bin/habit-tracker-api
+	@MONGO_URI=${mongo_uri} ./bin/habit-tracker-api
 
 test:
-	@go test -v ./...
+	@MONGO_URI=${mongo_uri} go test -v ./...
 
 local-mongo lm:
 	@docker-compose -f local-mongo-docker-compose.yml up -d --build --remove-orphans
