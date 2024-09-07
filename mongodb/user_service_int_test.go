@@ -29,10 +29,9 @@ func TestGetCreateUserIntegration(t *testing.T) {
         }
     }()
     db := client.Database("test")
-    log.Println(db.Name())
 
     userService := &UserService{DB: db}
-    user, err := userService.CreateUser("test")
+    user, created_id, err := userService.CreateUser("test")
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
@@ -45,12 +44,11 @@ func TestGetCreateUserIntegration(t *testing.T) {
     // for cursor.Next(nil) {
     //     log.Println(cursor.Current)
     // }
-    retrievedUser, err := userService.User(user.Name)
+    retrievedUser, err := userService.User(created_id)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
     }
-    log.Println(retrievedUser)
     if retrievedUser.Name != user.Name {
         t.Errorf("Expected user name %s, got %s", user.Name, retrievedUser.Name)
     }
