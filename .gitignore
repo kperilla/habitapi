@@ -60,3 +60,9 @@ profile*
 # Build output
 built
 bin
+
+# Env files
+.env
+
+# MongoDB
+mongodb/data

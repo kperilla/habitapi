@@ -6,3 +6,9 @@ run: build
 
 test:
 	@go test -v ./...
+
+local-mongo lm:
+	@docker-compose -f local-mongo-docker-compose.yml up -d --build --remove-orphans
+
+local-mongo-stop lm-stop:
+	@docker-compose -f local-mongo-docker-compose.yml down
