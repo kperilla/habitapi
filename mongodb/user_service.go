@@ -32,7 +32,7 @@ func (s *UserService) CreateUser(name string) (*habittrackerapi.User, string, er
     if err != nil {
         log.Fatal(err)
     }
-    id :=res.InsertedID.(bson.ObjectID).Hex()
+    id := res.InsertedID.(bson.ObjectID).Hex()
     user := habittrackerapi.User{Name: name}
     return &user, id, err
 }

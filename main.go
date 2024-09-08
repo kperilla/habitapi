@@ -23,8 +23,10 @@ func main() {
     _ = &mongodb.UserService{DB: db}
 
     server := http.NewAPIServer(":8080")
-    var handler http.Handler
-    if err := server.Run(&handler); err != nil {
+    userService := &mongodb.UserService{DB: db}
+    // handler := http.Handler{UserService: userService}
+    handler := http.NewHandler(userService)
+    if err := server.Run(handler); err != nil {
         log.Fatal(err)
     }
     defer func() {

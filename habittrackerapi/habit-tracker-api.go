@@ -6,7 +6,7 @@ type User struct {
 
 type UserService interface {
     User(string) (*User, error)
-    Users() ([]*User, error)
+    // Users() ([]*User, error)
     CreateUser(string) (*User, string, error)
     DeleteUser(string) error
 }
