@@ -17,7 +17,6 @@ func NewHandler(userService habittrackerapi.UserService) *Handler {
 
 type APIServer struct {
     addr string
-    // db
     handler *Handler
 }
 
@@ -27,10 +26,12 @@ func NewAPIServer(addr string) *APIServer {
 
 func (s *APIServer) Run(handler *Handler) error {
     router := http.NewServeMux()
-    // subrouter := router.PathPrefix("/api/v1").Subrouter()
-    router.HandleFunc("GET /api/v1/", handler.HandleHealthcheck)
-    router.HandleFunc("GET /api/v1/users/{id}", handler.HandleGetUser)
-    router.HandleFunc("POST /api/v1/users/", handler.HandleCreateUser)
+    router.HandleFunc("GET /", handler.HandleHealthcheck)
+    router.HandleFunc("GET /users/{id}", handler.HandleGetUser)
+    router.HandleFunc("POST /users/", handler.HandleCreateUser)
+
+    v1 := http.NewServeMux()
+    v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))
 
     server := http.Server{
         Addr: s.addr,
