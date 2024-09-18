@@ -4,11 +4,11 @@ import (
     "net/http"
 
     "encoding/json"
-    "habits/habittrackerapi"
+    "github.com/kperilla/habitapi/habitapi"
 )
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
-    var user habittrackerapi.User
+    var user habitapi.User
     if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
     }

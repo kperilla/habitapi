@@ -1,4 +1,4 @@
-package habittrackerapi
+package habitapi
 
 type User struct {
     Name string

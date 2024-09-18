@@ -4,8 +4,8 @@ import (
     "log"
     "os"
 
-    "habits/http"
-    "habits/mongodb"
+    "github.com/kperilla/habitapi/http"
+    "github.com/kperilla/habitapi/mongodb"
 )
 
 func main() {

@@ -5,13 +5,13 @@ import (
     "log"
 
     "encoding/json"
-    "habits/habittrackerapi"
+    "github.com/kperilla/habitapi/habitapi"
 )
 
 type Handler struct {
-    UserService habittrackerapi.UserService
+    UserService habitapi.UserService
 }
-func NewHandler(userService habittrackerapi.UserService) *Handler {
+func NewHandler(userService habitapi.UserService) *Handler {
     return &Handler{UserService: userService}
 }
 
