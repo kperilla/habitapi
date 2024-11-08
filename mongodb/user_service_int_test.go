@@ -38,6 +38,12 @@ func TestGetCreateUserIntegration(t *testing.T) {
         t.Errorf("Create failed")
     }
 
+    _, createdId2, err := userService.CreateUser("test2")
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Create failed")
+    }
+
     // Get
     retrievedUser, err := userService.User(created_id)
     if err != nil {
@@ -48,39 +54,25 @@ func TestGetCreateUserIntegration(t *testing.T) {
         t.Errorf("Expected user name %s, got %s", user.Name, retrievedUser.Name)
     }
 
+    // Get All
+    users, err := userService.Users()
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Get all failed")
+    }
+    if len(users) != 2 {
+        t.Errorf("Expected 2 users, got %d", len(users))
+    }
+
     // Delete
     err = userService.DeleteUser(created_id)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")
     }
+    err = userService.DeleteUser(createdId2)
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Delete failed")
+    }
 }
-
-// func TestUser(t *testing.T) {
-//     db := mock.Database{}
-//     collection := mock.Collection{}
-//     db.CollectionFn = func(name string) *mongodb.Collection {
-//         return &collection
-//     }
-//     collection.FindOneFn = func(ctx mock.Context, filter interface{}, opts ...*options.FindOneOptions) *mongo.SingleResult {
-//         if filter != mongodb.bsonFilter("id", "1") {
-//             t.Fatalf("unexpected id: %d", filter)
-//         }
-//         return &mongo.SingleResult{}
-//     }
-//     userService := &mongodb.UserService{DB: db}
-//
-//     user, _ := userService.User("1")
-//     if user.Id != "1" {
-//         t.Errorf("Expected user id 1, got %s", user.Id)
-//     }
-// }
-//
-// func TestCreateUser(t *testing.T) {
-//     t.Skip("Skipping test")
-// }
-
-
-// Something tells me that the complexity of the mocks and testing is a hint
-// that I'm doing something wrong. This should probably be the realm of
-// integration testing.

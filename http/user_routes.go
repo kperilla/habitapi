@@ -32,3 +32,11 @@ func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
     }
     WriteJSON(w, http.StatusOK, user)
 }
+
+func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
+    users, err := h.UserService.Users()
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    WriteJSON(w, http.StatusOK, users)
+}

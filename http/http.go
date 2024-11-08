@@ -28,6 +28,7 @@ func (s *APIServer) Run(handler *Handler) error {
     router := http.NewServeMux()
     router.HandleFunc("GET /", handler.HandleHealthcheck)
     router.HandleFunc("GET /users/{id}", handler.HandleGetUser)
+    router.HandleFunc("GET /users/", handler.HandleGetUsers)
     router.HandleFunc("POST /users/", handler.HandleCreateUser)
 
     v1 := http.NewServeMux()

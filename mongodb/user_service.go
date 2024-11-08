@@ -29,6 +29,19 @@ func (s *UserService) User(id string) (*habitapi.User, error) {
     return user, err
 }
 
+func (s *UserService) Users() ([]*habitapi.User, error) {
+    users := []*habitapi.User{}
+    cursor, err := s.DB.Collection("users").Find(nil, bson.D{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    err = cursor.All(nil, &users)
+    if err != nil {
+        log.Fatal(err)
+    }
+    return users, err
+}
+
 func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
     // ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
     // defer cancel()

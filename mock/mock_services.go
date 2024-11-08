@@ -8,9 +8,9 @@ type UserService struct {
     UserFn func(id string) (*habitapi.User, error)
     UserInvoked bool
 
-    // UsersFn func() ([]*habitapi.User, error)
-    // UsersInvoked bool
-    //
+    UsersFn func() ([]*habitapi.User, error)
+    UsersInvoked bool
+
     CreateUserFn func(name string) (*habitapi.User, string, error)
     CreateUserInvoked bool
 
@@ -23,10 +23,10 @@ func (s *UserService) User(id string) (*habitapi.User, error) {
     return s.UserFn(id)
 }
 
-// func (s *UserService) Users() ([]*habitapi.User, error) {
-//     s.UsersInvoked = true
-//     return s.UsersFn()
-// }
+func (s *UserService) Users() ([]*habitapi.User, error) {
+    s.UsersInvoked = true
+    return s.UsersFn()
+}
 
 func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
     s.CreateUserInvoked = true
