@@ -13,10 +13,14 @@ func TestGetCreateUserIntegration(t *testing.T) {
         t.Skip("skipping integration test")
     }
 
-    mongo_uri := os.Getenv("MONGO_URI")
-    mongo_password := os.Getenv("MONGO_LOCAL_PASSWORD")
+    mongo_uri := os.Getenv("MONGODB_URI")
+    mongo_username := os.Getenv("MONGODB_USERNAME")
+    mongo_password := os.Getenv("MONGODB_PASSWORD")
+    // print
+    log.Printf("MONGO_URI: %s", mongo_uri)
+    log.Printf("MONGODB_USERNAME: %s", mongo_username)
     credential := Credential{
-        Username: "mongo-admin",
+        Username: mongo_username,
         Password: mongo_password,
     }
     client, err := InitMongo(mongo_uri, credential)
