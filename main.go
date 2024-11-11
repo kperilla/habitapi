@@ -12,9 +12,6 @@ func main() {
     mongo_uri := os.Getenv("MONGODB_URI")
     mongo_username := os.Getenv("MONGODB_USERNAME")
     mongo_password := os.Getenv("MONGODB_PASSWORD")
-    // print
-    log.Printf("MONGO_URI: %s", mongo_uri)
-    log.Printf("MONGODB_USERNAME: %s", mongo_username)
     credential := mongodb.Credential{
         Username: mongo_username,
         Password: mongo_password,
@@ -28,7 +25,6 @@ func main() {
 
     server := http.NewAPIServer(":8080")
     userService := &mongodb.UserService{DB: db}
-    // handler := http.Handler{UserService: userService}
     handler := http.NewHandler(userService)
     if err := server.Run(handler); err != nil {
         log.Fatal(err)
