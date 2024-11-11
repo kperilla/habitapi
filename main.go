@@ -10,9 +10,10 @@ import (
 
 func main() {
     mongo_uri := os.Getenv("MONGO_URI")
-    mongo_password := os.Getenv("MONGO_LOCAL_PASSWORD")
+    mongo_username := os.Getenv("MONGODB_USERNAME")
+    mongo_password := os.Getenv("MONGODB_PASSWORD")
     credential := mongodb.Credential{
-        Username: "mongo-admin",
+        Username: mongo_username,
         Password: mongo_password,
     }
     client, err := mongodb.InitMongo(mongo_uri, credential)

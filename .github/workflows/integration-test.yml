@@ -1,0 +1,33 @@
+name: Integration Tests
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    environment: test
+
+    strategy:
+      matrix:
+        go-version: [1.23.x]
+        mongodb-version: ['6.0', '7.0', '8.0']
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-username: ${{ secrets.MONGODB_USERNAME }}
+          mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
+          # mongodb-db: ${{ secrets.MONGODB_DATABASE }}
+
+      - name: Test
+        run: make integration
