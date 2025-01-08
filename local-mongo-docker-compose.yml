@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   mongo-container:
     image: arm64v8/mongo # use this for apple silicon
