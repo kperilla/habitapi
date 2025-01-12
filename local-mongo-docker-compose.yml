@@ -1,6 +1,7 @@
 services:
   mongo-container:
-    image: arm64v8/mongo # use this for apple silicon
+    # image: arm64v8/mongo # use this for apple silicon
+    image: mongo
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
         - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
