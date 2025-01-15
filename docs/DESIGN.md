@@ -6,7 +6,7 @@
 - As a user, I want the API to store my historical habit data, to view the accumulation
 - As a user, I want to be able to log in to see my own stats/data
 - As a user, I want to be able to store habit points/acts and store rewards, to be able to see my progress
-- As a designer and user, I want a simple system of points that relate to habit 
+- As a designer and user, I want a simple system of points that relate to habit
 actions, so that users are not discouraged or confused
 - As a user/frontend, I want to be able to see my own stats/data with an endpoint, so that I can display them
 - As a user, I want to be able to update or delete older entries, so that I can fix mistakes
@@ -39,3 +39,68 @@ REST API with the following endpoints:
 - /users - full CRUD
 - /data - GET
   - TODO: Need to see how best to deliver historical data; GraphQL?
+
+### DB Design
+
+#### Relationships
+- Users (1:*) HabitGroups, Habits, Deeds, Rewards
+- HabitGroups (1:*) Habits
+- Habits (1:*) Deeds
+
+#### Possible Schema
+Needing Habits along with HabitGroup seem to be the most common connection,
+so it seems like having HabitGroup be it's own collection is ideal, rather than
+embedding it.
+User
+```
+{
+    id,
+    name,
+    point_total,
+}
+```
+
+HabitGroup
+```
+{
+    id,
+    name,
+    description,
+    user_id: REF[User]
+}
+```
+
+Habit
+```
+{
+    id,
+    habit_group_id: REF[HabitGroup],
+    user,
+    name,
+    description
+}
+```
+
+Deed
+```
+{
+    id,
+    timestamp,
+    user_id: REF[User],
+    name,
+    description,
+    habit_id: REF[Habit]
+}
+
+```
+
+Reward
+```
+{
+    id,
+    user_id: REF[User],
+    point_cost,
+    name,
+    description
+}
+```
