@@ -51,6 +51,7 @@ REST API with the following endpoints:
 Needing Habits along with HabitGroup seem to be the most common connection,
 so it seems like having HabitGroup be it's own collection is ideal, rather than
 embedding it.
+
 User
 ```
 {
