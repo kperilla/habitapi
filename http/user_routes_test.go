@@ -79,5 +79,32 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
     }
 }
 
-// TODO Test GET users gets all users
+func TestHandleGetUsers_ReturnsAllUsersFound_IfAnyExist(t *testing.T) {
+    var mockUserService mock.UserService
+    var handler Handler
+    handler.UserService = &mockUserService
+
+    mockUserService.UsersFn = func() ([]*habitapi.User, error) {
+        userList := []*habitapi.User {
+            {Name: "foobar"},
+            {Name: "barfoo"},
+            {Name: "barbaz"},
+        }
+        return userList, nil
+    }
+
+    w := httptest.NewRecorder()
+    r, _ := http.NewRequest("GET", "/users", nil)
+
+    handler.HandleGetUsers(w, r)
+    if w.Code != http.StatusOK {
+        t.Errorf("Expected status code %d, got %d", http.StatusOK, w.Code)
+    }
+
+    var users []*habitapi.User
+    json.Unmarshal(w.Body.Bytes(), &users)
+    if len(users) != 3 {
+        t.Errorf("Expected 3 users, got %d", len(users))
+    }
+}
 // TODO Test delete users returns 204 and actually deletes
