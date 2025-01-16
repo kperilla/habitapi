@@ -107,4 +107,22 @@ func TestHandleGetUsers_ReturnsAllUsersFound_IfAnyExist(t *testing.T) {
         t.Errorf("Expected 3 users, got %d", len(users))
     }
 }
-// TODO Test delete users returns 204 and actually deletes
+
+func TestHandleDeleteUser_Return204_IfNoError(t *testing.T) {
+    var mockUserService mock.UserService
+    var handler Handler
+    handler.UserService = &mockUserService
+
+    mockUserService.DeleteUserFn = func(id string) (error) {
+        return nil
+    }
+
+    w := httptest.NewRecorder()
+    r, _ := http.NewRequest("DELETE", "/users/1", nil)
+
+    handler.HandleDeleteUser(w, r)
+
+    if w.Code != http.StatusNoContent {
+        t.Errorf("Expected status code %d, got %d", http.StatusNoContent, w.Code)
+    }
+}
