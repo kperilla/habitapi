@@ -11,6 +11,7 @@ import (
 type Handler struct {
     UserService habitapi.UserService
 }
+
 func NewHandler(userService habitapi.UserService) *Handler {
     return &Handler{UserService: userService}
 }
@@ -30,6 +31,12 @@ func (s *APIServer) Run(handler *Handler) error {
     router.HandleFunc("GET /users/{id}", handler.HandleGetUser)
     router.HandleFunc("GET /users/", handler.HandleGetUsers)
     router.HandleFunc("POST /users/", handler.HandleCreateUser)
+    // TODO: Delete Users
+    // router.HandleFunc("DELETE /users/{id}", handler.HandleDeleteUser)
+    // TODO: HabitGroup
+    // TODO: Habit
+    // TODO: Deed
+    // TODO: Reward
 
     v1 := http.NewServeMux()
     v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))

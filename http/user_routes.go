@@ -40,3 +40,12 @@ func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
     }
     WriteJSON(w, http.StatusOK, users)
 }
+
+func (h *Handler) HandleDeleteUser(w http.ResponseWriter, r * http.Request) {
+    id := r.PathValue("id")
+    err := h.UserService.DeleteUser(id)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    WriteJSON(w, http.StatusNoContent, id)
+}

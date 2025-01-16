@@ -78,3 +78,6 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
         t.Errorf("Expected id %s, got %s", expectedUserId, id)
     }
 }
+
+// TODO Test GET users gets all users
+// TODO Test delete users returns 204 and actually deletes
