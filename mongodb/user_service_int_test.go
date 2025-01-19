@@ -35,21 +35,23 @@ func TestGetCreateUserIntegration(t *testing.T) {
     // Create
     userService := &UserService{DB: db}
     var dtoA = habitapi.CreateUserDTO{Name: "test"}
-    user, created_id, err := userService.CreateUser(dtoA)
+    user, err := userService.CreateUser(dtoA)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
+    createdId := user.ID
 
     var dtoB = habitapi.CreateUserDTO{Name: "test2"}
-    _, createdId2, err := userService.CreateUser(dtoB)
+    user2, err := userService.CreateUser(dtoB)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
+    createdId2 := user2.ID
 
     // Get
-    retrievedUser, err := userService.User(created_id)
+    retrievedUser, err := userService.User(createdId)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
@@ -69,7 +71,7 @@ func TestGetCreateUserIntegration(t *testing.T) {
     }
 
     // Delete
-    err = userService.DeleteUser(created_id)
+    err = userService.DeleteUser(createdId)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")

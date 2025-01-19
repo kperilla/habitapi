@@ -10,10 +10,18 @@ type User struct {
     PointTotal int
 }
 
+type Service[T any, DTO any] interface {
+    Create(dto DTO) (*T, string, error)
+    GetByID(id string) (*T, error)
+    List() ([]*T, error)
+    Update(id string, dto DTO) (*T, error)
+    Delete(id string) error
+}
+
 type UserService interface {
     User(string) (*User, error)
     Users() ([]*User, error)
-    CreateUser(CreateUserDTO) (*User, string, error)
+    CreateUser(CreateUserDTO) (*User, error)
     DeleteUser(string) error
 }
 

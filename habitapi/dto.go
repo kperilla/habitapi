@@ -4,6 +4,10 @@ type CreateUserDTO struct {
     Name string
 }
 
+func (dto *CreateUserDTO) ToModel() User {
+    return User{Name: dto.Name, PointTotal: 0}
+}
+
 type CreateHabitGroupDTO struct {
     Name string
     Description string

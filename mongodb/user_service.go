@@ -1,8 +1,6 @@
 package mongodb
 
 import (
-    // "context"
-    // "time"
     "log"
 
     "go.mongodb.org/mongo-driver/v2/mongo"
@@ -42,16 +40,14 @@ func (s *UserService) Users() ([]*habitapi.User, error) {
     return users, err
 }
 
-func (s *UserService) CreateUser(dto habitapi.CreateUserDTO) (*habitapi.User, string, error) {
-    // TODO: consider creating User object and then passing that into InsertOne
-    var name = dto.Name
-    res, err := s.DB.Collection("users").InsertOne(nil, bsonFilter("name", name))
+func (s *UserService) CreateUser(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
+    user := dto.ToModel()
+    res, err := s.DB.Collection("users").InsertOne(nil, user)
     if err != nil {
         log.Fatal(err)
     }
-    id := res.InsertedID.(bson.ObjectID).Hex()
-    user := habitapi.User{Name: name}
-    return &user, id, err
+    user.ID = res.InsertedID.(bson.ObjectID).Hex()
+    return &user, err
 }
 
 func (s *UserService) DeleteUser(id string) error {

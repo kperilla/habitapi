@@ -14,11 +14,11 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
         WriteJSON(w, http.StatusBadRequest, err)
     }
     // TODO: Validate DTO
-    _, id, err := h.UserService.CreateUser(dto)
+    user, err := h.UserService.CreateUser(dto)
     if err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
     }
-    WriteJSON(w, http.StatusCreated, id)
+    WriteJSON(w, http.StatusCreated, user.ID)
 }
 
 func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
