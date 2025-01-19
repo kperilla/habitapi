@@ -42,6 +42,7 @@ func (s *UserService) Users() ([]*habitapi.User, error) {
     return users, err
 }
 
+// TODO: implement DTO input
 func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
     // ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
     // defer cancel()

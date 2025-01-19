@@ -3,6 +3,7 @@ package habitapi
 import "time"
 
 type User struct {
+    ID string
     Name string
     PointTotal int
 }
@@ -15,6 +16,7 @@ type UserService interface {
 }
 
 type Habit struct {
+    ID string
     Name string
     Description string
     // Hex representation of ObjectId in order to keep imports clean
@@ -30,6 +32,7 @@ type HabitService interface {
 }
 
 type HabitGroup struct {
+    ID string
     Name string
     Description string
     UserId string
@@ -43,6 +46,7 @@ type HabitGroupService interface {
 }
 
 type Deed struct {
+    ID string
     Timestamp time.Time
     Name string
     Description string
@@ -51,6 +55,7 @@ type Deed struct {
 }
 
 type Reward struct {
+    ID string
     Name string
     Description string
     PointCost int
