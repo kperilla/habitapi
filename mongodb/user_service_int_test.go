@@ -1,11 +1,12 @@
 package mongodb
 
 import (
-    "log"
-    "os"
-    "testing"
+	"log"
+	"os"
+	"testing"
 
-    // "go.mongodb.org/mongo-driver/v2/bson"
+	"github.com/kperilla/habitapi/habitapi"
+	// "go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestGetCreateUserIntegration(t *testing.T) {
@@ -33,13 +34,15 @@ func TestGetCreateUserIntegration(t *testing.T) {
 
     // Create
     userService := &UserService{DB: db}
-    user, created_id, err := userService.CreateUser("test")
+    var dtoA = habitapi.CreateUserDTO{Name: "test"}
+    user, created_id, err := userService.CreateUser(dtoA)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
 
-    _, createdId2, err := userService.CreateUser("test2")
+    var dtoB = habitapi.CreateUserDTO{Name: "test2"}
+    _, createdId2, err := userService.CreateUser(dtoB)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")

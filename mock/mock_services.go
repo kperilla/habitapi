@@ -11,7 +11,7 @@ type UserService struct {
     UsersFn func() ([]*habitapi.User, error)
     UsersInvoked bool
 
-    CreateUserFn func(name string) (*habitapi.User, string, error)
+    CreateUserFn func(dto habitapi.CreateUserDTO) (*habitapi.User, string, error)
     CreateUserInvoked bool
 
     DeleteUserFn func(id string) error
@@ -28,9 +28,9 @@ func (s *UserService) Users() ([]*habitapi.User, error) {
     return s.UsersFn()
 }
 
-func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
+func (s *UserService) CreateUser(dto habitapi.CreateUserDTO) (*habitapi.User, string, error) {
     s.CreateUserInvoked = true
-    return s.CreateUserFn(name)
+    return s.CreateUserFn(dto)
 }
 
 func (s *UserService) DeleteUser(id string) error {

@@ -42,12 +42,9 @@ func (s *UserService) Users() ([]*habitapi.User, error) {
     return users, err
 }
 
-// TODO: implement DTO input
-// func (s *UserService) CreateUser(dto *CreateUserDTO) (*habitapi.User, string, error) {
-func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
-    // ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-    // defer cancel()
+func (s *UserService) CreateUser(dto habitapi.CreateUserDTO) (*habitapi.User, string, error) {
     // TODO: consider creating User object and then passing that into InsertOne
+    var name = dto.Name
     res, err := s.DB.Collection("users").InsertOne(nil, bsonFilter("name", name))
     if err != nil {
         log.Fatal(err)

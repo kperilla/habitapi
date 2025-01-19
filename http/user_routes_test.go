@@ -60,7 +60,7 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
     expectedUserId := "1"
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
-    mockUserService.CreateUserFn = func(name string) (*habitapi.User, string, error) {
+    mockUserService.CreateUserFn = func(dto habitapi.CreateUserDTO) (*habitapi.User, string, error) {
         return &habitapi.User{Name: "foobar"}, expectedUserId, nil
     }
 

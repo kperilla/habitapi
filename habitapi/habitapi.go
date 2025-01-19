@@ -1,6 +1,8 @@
 package habitapi
 
-import "time"
+import (
+	"time"
+)
 
 type User struct {
     ID string
@@ -11,7 +13,7 @@ type User struct {
 type UserService interface {
     User(string) (*User, error)
     Users() ([]*User, error)
-    CreateUser(string) (*User, string, error)
+    CreateUser(CreateUserDTO) (*User, string, error)
     DeleteUser(string) error
 }
 
