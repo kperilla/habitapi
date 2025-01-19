@@ -25,8 +25,24 @@ func main() {
 
     server := http.NewAPIServer(":8080")
     userService := &mongodb.UserService{DB: db}
-    handler := http.NewHandler(userService)
-    if err := server.Run(handler); err != nil {
+    userHandler := http.NewHandler(userService)
+    // TODO:
+    // habitService
+    // habitHandler
+    // habitGroupService
+    // habitGroupHandler
+    // deedService
+    // deedHandler
+    // rewardService
+    // rewardHandler
+    err = server.Run(
+        userHandler,
+        // habitHandler,
+        // habitGroupHandler,
+        // deedHandler,
+        // rewardHandler
+    )
+    if err != nil {
         log.Fatal(err)
     }
     defer func() {
