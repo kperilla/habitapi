@@ -9,10 +9,12 @@ import (
 )
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
+    // TODO use dto here
     var user habitapi.User
     if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
     }
+    // TODO: Validate DTO
     _, id, err := h.UserService.CreateUser(user.Name)
     if err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
