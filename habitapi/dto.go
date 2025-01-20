@@ -40,8 +40,8 @@ type UpdateHabitGroupDTO struct {
     UserId string
 }
 
-func (dto *UpdateHabitGroupDTO) ToModel() HabitGroup {
-    return HabitGroup{
+func (dto *UpdateHabitGroupDTO) ToModel() *HabitGroup {
+    return &HabitGroup{
         Name: dto.Name,
         Description: dto.Description,
         UserId: dto.UserId,
@@ -55,8 +55,8 @@ type CreateHabitDTO struct {
     HabitGroupId string
 }
 
-func (dto *CreateHabitDTO) ToModel() Habit {
-    return Habit{
+func (dto *CreateHabitDTO) ToModel() *Habit {
+    return &Habit{
         Name: dto.Name,
         Description: dto.Description,
         UserId: dto.UserId,
@@ -69,8 +69,8 @@ type UpdateHabitDTO struct {
     UserId string
 }
 
-func (dto *UpdateHabitDTO) ToModel() Habit {
-    return Habit{
+func (dto *UpdateHabitDTO) ToModel() *Habit {
+    return &Habit{
         Name: dto.Name,
         Description: dto.Description,
         UserId: dto.UserId,

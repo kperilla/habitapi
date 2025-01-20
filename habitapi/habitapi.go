@@ -56,6 +56,11 @@ type HabitGroup struct {
     UserId string
 }
 
+// NOTE: I wasn't able to make this work from within the generic functions
+func (hg *HabitGroup) SetID(id string) {
+    hg.ID = id
+}
+
 type HabitGroupService interface {
     HabitGroup(string) (*HabitGroup, error)
     // HabitGroups() ([]*HabitGroup, error)

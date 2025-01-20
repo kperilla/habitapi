@@ -8,7 +8,7 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
-func GetById[T habitapi.ApiResource](
+func GetById[T any](
     id string,
     collectionName string,
     empty *T,
@@ -28,7 +28,7 @@ func GetById[T habitapi.ApiResource](
     return resource, err
 }
 
-func List[T habitapi.ApiResource](
+func List[T any](
     collectionName string,
     empty []*T,
     db *mongo.Database,
@@ -45,21 +45,21 @@ func List[T habitapi.ApiResource](
     return resources, err
 }
 
-func Create[T habitapi.ApiResource, DTO habitapi.DTO[T]] (
+func Create[T any, DTO habitapi.DTO[T]] (
     dto DTO,
     collectionName string,
     db *mongo.Database,
-) (*T, error) {
+) (*T, string, error) {
     resource := dto.ToModel()
     res, err := db.Collection(collectionName).InsertOne(nil, resource)
     if err != nil {
         log.Fatal(err)
     }
-    resource.SetID(res.InsertedID.(bson.ObjectID).Hex())
-    return &resource, err
+    id := res.InsertedID.(bson.ObjectID).Hex()
+    return &resource, id, err
 }
 
-func Update[T habitapi.ApiResource, DTO habitapi.DTO[T]](
+func Update[T any, DTO habitapi.DTO[T]](
     id string,
     dto DTO,
     collectionName string,
@@ -76,7 +76,7 @@ func Update[T habitapi.ApiResource, DTO habitapi.DTO[T]](
     return &resource, err
 }
 
-func Delete[T habitapi.ApiResource] (
+func Delete (
     id string,
     collectionName string,
     db *mongo.Database,
