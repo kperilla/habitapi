@@ -8,6 +8,14 @@ func (dto *CreateUserDTO) ToModel() User {
     return User{Name: dto.Name, PointTotal: 0}
 }
 
+type UpdateUserDTO struct {
+    Name string
+}
+
+func (dto *UpdateUserDTO) ToModel() User {
+    return User{Name: dto.Name, PointTotal: 0}
+}
+
 type CreateHabitGroupDTO struct {
     Name string
     Description string
