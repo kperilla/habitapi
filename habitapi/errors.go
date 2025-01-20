@@ -1,9 +1,9 @@
 package habitapi
 
-type ErrUserNotFound struct {
+type ErrResourceNotFound struct {
     Err error
 }
 
-func (e *ErrUserNotFound) Error() string {
+func (e *ErrResourceNotFound) Error() string {
     return e.Err.Error()
 }

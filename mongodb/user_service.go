@@ -18,7 +18,7 @@ func (s *UserService) User(id string) (*habitapi.User, error) {
     result := s.DB.Collection("users").FindOne(nil, bson.M{"_id": objectId})
     err := result.Err()
     if err == mongo.ErrNoDocuments {
-        return nil, &habitapi.ErrUserNotFound{Err: err}
+        return nil, &habitapi.ErrResourceNotFound{Err: err}
     }
     err = result.Decode(user)
     if err != nil {

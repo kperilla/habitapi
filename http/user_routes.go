@@ -24,7 +24,7 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
     id := r.PathValue("id")
     user, err := h.UserService.User(id)
-    var errNotFound *habitapi.ErrUserNotFound
+    var errNotFound *habitapi.ErrResourceNotFound
     switch {
         case errors.As(err, &errNotFound):
             WriteJSON(w, http.StatusNotFound, err)

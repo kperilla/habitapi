@@ -4,10 +4,18 @@ import (
 	"time"
 )
 
+type ApiResource interface {
+    SetID(id string)
+}
+
 type User struct {
     ID string
     Name string
     PointTotal int
+}
+
+func (u *User) SetID(id string) {
+    u.ID = id
 }
 
 type Service[T any, DTO any] interface {

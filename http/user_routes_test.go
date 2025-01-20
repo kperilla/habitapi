@@ -41,7 +41,7 @@ func TestHandleGetUser_ReturnsError_WhenIdDoesNotExist(t *testing.T) {
     handler.UserService = &mockUserService
 
     mockUserService.UserFn = func(id string) (*habitapi.User, error) {
-        return nil, &habitapi.ErrUserNotFound{}
+        return nil, &habitapi.ErrResourceNotFound{}
     }
 
     w := httptest.NewRecorder()
