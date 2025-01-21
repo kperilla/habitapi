@@ -5,35 +5,35 @@ import (
 )
 
 type UserService struct {
-    UserFn func(id string) (*habitapi.User, error)
-    UserInvoked bool
+    GetByIdFn func(id string) (*habitapi.User, error)
+    GetByIdInvoked bool
 
-    UsersFn func() ([]*habitapi.User, error)
-    UsersInvoked bool
+    ListFn func() ([]*habitapi.User, error)
+    ListInvoked bool
 
-    CreateUserFn func(dto habitapi.CreateUserDTO) (*habitapi.User, error)
-    CreateUserInvoked bool
+    CreateFn func(dto habitapi.CreateUserDTO) (*habitapi.User, error)
+    CreateInvoked bool
 
-    DeleteUserFn func(id string) error
-    DeleteUserInvoked bool
+    DeleteFn func(id string) error
+    DeleteInvoked bool
 }
 
-func (s *UserService) User(id string) (*habitapi.User, error) {
-    s.UserInvoked = true
-    return s.UserFn(id)
+func (s *UserService) GetById(id string) (*habitapi.User, error) {
+    s.GetByIdInvoked = true
+    return s.GetByIdFn(id)
 }
 
-func (s *UserService) Users() ([]*habitapi.User, error) {
-    s.UsersInvoked = true
-    return s.UsersFn()
+func (s *UserService) List() ([]*habitapi.User, error) {
+    s.ListInvoked = true
+    return s.ListFn()
 }
 
-func (s *UserService) CreateUser(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
-    s.CreateUserInvoked = true
-    return s.CreateUserFn(dto)
+func (s *UserService) Create(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
+    s.CreateInvoked = true
+    return s.CreateFn(dto)
 }
 
-func (s *UserService) DeleteUser(id string) error {
-    s.DeleteUserInvoked = true
-    return s.DeleteUserFn(id)
+func (s *UserService) Delete(id string) error {
+    s.DeleteInvoked = true
+    return s.DeleteFn(id)
 }

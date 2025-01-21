@@ -16,7 +16,7 @@ func TestHandleGetUser_ReturnsUserMatchingId_WhenIdExists(t *testing.T) {
     var handler Handler
     handler.UserService = &mockUserService
 
-    mockUserService.UserFn = func(id string) (*habitapi.User, error) {
+    mockUserService.GetByIdFn = func(id string) (*habitapi.User, error) {
         return &habitapi.User{Name: "foobar"}, nil
     }
 
@@ -40,7 +40,7 @@ func TestHandleGetUser_ReturnsError_WhenIdDoesNotExist(t *testing.T) {
     var handler Handler
     handler.UserService = &mockUserService
 
-    mockUserService.UserFn = func(id string) (*habitapi.User, error) {
+    mockUserService.GetByIdFn = func(id string) (*habitapi.User, error) {
         return nil, &habitapi.ErrResourceNotFound{}
     }
 
@@ -60,7 +60,7 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
     expectedUserId := "1"
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
-    mockUserService.CreateUserFn = func(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
+    mockUserService.CreateFn = func(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
         return &habitapi.User{ID: expectedUserId, Name: "foobar"}, nil
     }
 
@@ -84,7 +84,7 @@ func TestHandleGetUsers_ReturnsAllUsersFound_IfAnyExist(t *testing.T) {
     var handler Handler
     handler.UserService = &mockUserService
 
-    mockUserService.UsersFn = func() ([]*habitapi.User, error) {
+    mockUserService.ListFn = func() ([]*habitapi.User, error) {
         userList := []*habitapi.User {
             {Name: "foobar"},
             {Name: "barfoo"},
@@ -113,7 +113,7 @@ func TestHandleDeleteUser_Return204_IfNoError(t *testing.T) {
     var handler Handler
     handler.UserService = &mockUserService
 
-    mockUserService.DeleteUserFn = func(id string) (error) {
+    mockUserService.DeleteFn = func(id string) (error) {
         return nil
     }
 

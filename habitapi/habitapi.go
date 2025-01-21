@@ -14,23 +14,23 @@ type User struct {
     PointTotal int
 }
 
-func (u *User) SetID(id string) {
-    u.ID = id
-}
+// func (u *User) SetID(id string) {
+//     u.ID = id
+// }
 
-type Service[T any, DTO any] interface {
-    Create(dto DTO) (*T, string, error)
-    GetByID(id string) (*T, error)
-    List() ([]*T, error)
-    Update(id string, dto DTO) (*T, error)
-    Delete(id string) error
-}
+// type Service[T any, DTO any] interface {
+//     Create(dto DTO) (*T, string, error)
+//     GetById(id string) (*T, error)
+//     List() ([]*T, error)
+//     Update(id string, dto DTO) (*T, error)
+//     Delete(id string) error
+// }
 
 type UserService interface {
-    User(string) (*User, error)
-    Users() ([]*User, error)
-    CreateUser(CreateUserDTO) (*User, error)
-    DeleteUser(string) error
+    GetById(string) (*User, error)
+    List() ([]*User, error)
+    Create(CreateUserDTO) (*User, error)
+    Delete(string) error
 }
 
 type Habit struct {
@@ -57,15 +57,15 @@ type HabitGroup struct {
 }
 
 // NOTE: I wasn't able to make this work from within the generic functions
-func (hg *HabitGroup) SetID(id string) {
-    hg.ID = id
-}
+// func (hg *HabitGroup) SetID(id string) {
+//     hg.ID = id
+// }
 
 type HabitGroupService interface {
-    HabitGroup(string) (*HabitGroup, error)
-    // HabitGroups() ([]*HabitGroup, error)
-    CreateHabitGroup(string) (*HabitGroup, string, error)
-    DeleteHabitGroup(string) error
+    GetById(string) (*HabitGroup, error)
+    List() ([]*HabitGroup, error)
+    Create(string) (*HabitGroup, string, error)
+    Delete(string) error
 }
 
 type Deed struct {

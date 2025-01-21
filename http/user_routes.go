@@ -14,7 +14,7 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
         WriteJSON(w, http.StatusBadRequest, err)
     }
     // TODO: Validate DTO
-    user, err := h.UserService.CreateUser(dto)
+    user, err := h.UserService.Create(dto)
     if err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
     }
@@ -23,7 +23,7 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
     id := r.PathValue("id")
-    user, err := h.UserService.User(id)
+    user, err := h.UserService.GetById(id)
     var errNotFound *habitapi.ErrResourceNotFound
     switch {
         case errors.As(err, &errNotFound):
@@ -35,7 +35,7 @@ func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
-    users, err := h.UserService.Users()
+    users, err := h.UserService.List()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
@@ -44,7 +44,7 @@ func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) HandleDeleteUser(w http.ResponseWriter, r * http.Request) {
     id := r.PathValue("id")
-    err := h.UserService.DeleteUser(id)
+    err := h.UserService.Delete(id)
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
