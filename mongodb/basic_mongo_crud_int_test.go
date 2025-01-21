@@ -43,12 +43,24 @@ func TestGetCreateUserIntegration(t *testing.T) {
     createdId := id1
 
     var dtoB = habitapi.CreateUserDTO{Name: "test2"}
-    _, id2, err := Create(&dtoB, collectionName, db)
+    user2, id2, err := Create(&dtoB, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
     createdId2 := id2
+
+    // Update
+    newName := "ChangedTest"
+    var updateDto = habitapi.UpdateUserDTO{Name: newName}
+    changedUser, err := Update(createdId2, &updateDto, collectionName, db)
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Update failed")
+    }
+    if changedUser.Name != newName {
+        t.Errorf("Expected user name %s, got %s", newName, changedUser.Name)
+    }
 
     // Get
     emptyUser := &habitapi.User{}
@@ -60,8 +72,15 @@ func TestGetCreateUserIntegration(t *testing.T) {
     if retrievedUser.Name != user1.Name {
         t.Errorf("Expected user name %s, got %s", user1.Name, retrievedUser.Name)
     }
-
-    // Update
+    emptyUser = &habitapi.User{}
+    retrievedUser2, err := GetById(createdId2, collectionName, emptyUser, db)
+    if err != nil {
+        log.Fatal(err)
+        t.Errorf("Get failed")
+    }
+    if retrievedUser2.Name == user2.Name {
+        t.Errorf("Expected user name %s, got %s", newName, retrievedUser2.Name)
+    }
 
     // Get All
     emptyUserList := []*habitapi.User{}
