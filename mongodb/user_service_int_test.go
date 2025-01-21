@@ -31,37 +31,41 @@ func TestGetCreateUserIntegration(t *testing.T) {
         }
     }()
     db := client.Database("test")
+    collectionName := "users"
 
     // Create
-    userService := &UserService{DB: db}
     var dtoA = habitapi.CreateUserDTO{Name: "test"}
-    user, err := userService.CreateUser(dtoA)
+    user1, id1, err := Create(&dtoA, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
-    createdId := user.ID
+    createdId := id1
 
     var dtoB = habitapi.CreateUserDTO{Name: "test2"}
-    user2, err := userService.CreateUser(dtoB)
+    _, id2, err := Create(&dtoB, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
     }
-    createdId2 := user2.ID
+    createdId2 := id2
 
     // Get
-    retrievedUser, err := userService.User(createdId)
+    emptyUser := &habitapi.User{}
+    retrievedUser, err := GetById(createdId, collectionName, emptyUser, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
     }
-    if retrievedUser.Name != user.Name {
-        t.Errorf("Expected user name %s, got %s", user.Name, retrievedUser.Name)
+    if retrievedUser.Name != user1.Name {
+        t.Errorf("Expected user name %s, got %s", user1.Name, retrievedUser.Name)
     }
 
+    // Update
+
     // Get All
-    users, err := userService.Users()
+    emptyUserList := []*habitapi.User{}
+    users, err := List(collectionName, emptyUserList, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get all failed")
@@ -71,12 +75,12 @@ func TestGetCreateUserIntegration(t *testing.T) {
     }
 
     // Delete
-    err = userService.DeleteUser(createdId)
+    err = Delete(createdId, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")
     }
-    err = userService.DeleteUser(createdId2)
+    err = Delete(createdId2, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")
