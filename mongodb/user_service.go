@@ -7,27 +7,28 @@ import (
 
 type UserService struct {
 	DB *mongo.Database
+    CollectionName string
 }
 
 func (s *UserService) GetById(id string) (*habitapi.User, error) {
     empty := &habitapi.User{}
-    group, err := GetById(id, "users", empty, s.DB)
+    group, err := GetById(id, s.CollectionName, empty, s.DB)
     return group, err
 }
 
 func (s * UserService) List() ([]*habitapi.User, error) {
     empty := []*habitapi.User{}
-    groups, err := List("users", empty, s.DB)
+    groups, err := List(s.CollectionName, empty, s.DB)
     return groups, err
 }
 
 func (s *UserService) Create(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
-    group, id, err := Create(&dto, "users", s.DB)
+    group, id, err := Create(&dto, s.CollectionName, s.DB)
     group.ID = id
     return group, err
 }
 
 func (s *UserService) Delete(id string) error {
-    err := Delete(id, "users", s.DB)
+    err := Delete(id, s.CollectionName, s.DB)
     return err
 }

@@ -7,27 +7,28 @@ import (
 
 type HabitGroupService struct {
 	DB *mongo.Database
+    CollectionName string
 }
 
 func (s *HabitGroupService) GetById(id string) (*habitapi.HabitGroup, error) {
     empty := &habitapi.HabitGroup{}
-    group, err := GetById(id, "habit_groups", empty, s.DB)
+    group, err := GetById(id, s.CollectionName, empty, s.DB)
     return group, err
 }
 
 func (s * HabitGroupService) List() ([]*habitapi.HabitGroup, error) {
     empty := []*habitapi.HabitGroup{}
-    groups, err := List("habit_groups", empty, s.DB)
+    groups, err := List(s.CollectionName, empty, s.DB)
     return groups, err
 }
 
 func (s *HabitGroupService) Create(dto habitapi.CreateHabitGroupDTO) (*habitapi.HabitGroup, error) {
-    group, id, err := Create(&dto, "habit_groups", s.DB)
+    group, id, err := Create(&dto, s.CollectionName, s.DB)
     group.ID = id
     return group, err
 }
 
 func (s *HabitGroupService) Delete(id string) error {
-    err := Delete(id, "habit_groups", s.DB)
+    err := Delete(id, s.CollectionName, s.DB)
     return err
 }
