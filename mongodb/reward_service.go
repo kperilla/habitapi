@@ -1,59 +1,41 @@
 package mongodb
 
 import (
-    // "log"
-
     "go.mongodb.org/mongo-driver/v2/mongo"
-    // "go.mongodb.org/mongo-driver/v2/bson"
-    // "github.com/kperilla/habitapi/habitapi"
+    "github.com/kperilla/habitapi/habitapi"
 )
 
 type RewardService struct {
 	DB *mongo.Database
+    CollectionName string
 }
 
-// func (s *UserService) User(id string) (*habitapi.User, error) {
-//     objectId, _ := bson.ObjectIDFromHex(id)
-//     user := &habitapi.User{}
-//     result := s.DB.Collection("users").FindOne(nil, bson.M{"_id": objectId})
-//     err := result.Err()
-//     if err == mongo.ErrNoDocuments {
-//         return nil, &habitapi.ErrUserNotFound{Err: err}
-//     }
-//     err = result.Decode(user)
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-//     return user, err
-// }
-//
-// func (s *UserService) Users() ([]*habitapi.User, error) {
-//     users := []*habitapi.User{}
-//     cursor, err := s.DB.Collection("users").Find(nil, bson.D{})
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-//     err = cursor.All(nil, &users)
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-//     return users, err
-// }
-//
-// func (s *UserService) CreateUser(name string) (*habitapi.User, string, error) {
-//     // ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-//     // defer cancel()
-//     res, err := s.DB.Collection("users").InsertOne(nil, bsonFilter("name", name))
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-//     id := res.InsertedID.(bson.ObjectID).Hex()
-//     user := habitapi.User{Name: name}
-//     return &user, id, err
-// }
-//
-// func (s *UserService) DeleteUser(id string) error {
-//     objectId, _ := bson.ObjectIDFromHex(id)
-//     _, err := s.DB.Collection("users").DeleteOne(nil, bson.M{"_id": objectId})
-//     return err
-// }
+func (s *RewardService) GetById(id string) (*habitapi.Reward, error) {
+    empty := &habitapi.Reward{}
+    reward, err := GetById(id, s.CollectionName, empty, s.DB)
+    return reward, err
+}
+
+func (s * RewardService) List() ([]*habitapi.Reward, error) {
+    empty := []*habitapi.Reward{}
+    rewards, err := List(s.CollectionName, empty, s.DB)
+    return rewards, err
+}
+
+func (s *RewardService) Create(dto habitapi.CreateRewardDTO) (*habitapi.Reward, error) {
+    reward, id, err := Create(&dto, s.CollectionName, s.DB)
+    reward.ID = id
+    return reward, err
+}
+
+func (s *RewardService) Update(
+    id string, dto habitapi.UpdateRewardDTO,
+) (*habitapi.Reward, error) {
+    reward, err := Update(id, &dto, s.CollectionName, s.DB)
+    return reward, err
+}
+
+func (s *RewardService) Delete(id string) error {
+    err := Delete(id, s.CollectionName, s.DB)
+    return err
+}
