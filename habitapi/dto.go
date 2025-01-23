@@ -87,6 +87,15 @@ type CreateDeedDTO struct {
     // Timestamp time.Time
 }
 
+func (dto *CreateDeedDTO) ToModel() Deed {
+    return Deed{
+        Name: dto.Name,
+        Description: dto.Description,
+        UserId: dto.UserId,
+        HabitId: dto.HabitId,
+    }
+}
+
 type UpdateDeedDTO struct {
     Name string
     Description string
@@ -96,6 +105,15 @@ type UpdateDeedDTO struct {
     // Timestamp time.Time
 }
 
+func (dto *UpdateDeedDTO) ToModel() Deed {
+    return Deed{
+        Name: dto.Name,
+        Description: dto.Description,
+        UserId: dto.UserId,
+        HabitId: dto.HabitId,
+    }
+}
+
 type CreateRewardDTO struct {
     Name string
     Description string
@@ -103,9 +121,27 @@ type CreateRewardDTO struct {
     UserId string
 }
 
+func (dto *CreateRewardDTO) ToModel() Reward {
+    return Reward{
+        Name: dto.Name,
+        Description: dto.Description,
+        PointCost: dto.PointCost,
+        UserId: dto.UserId,
+    }
+}
+
 type UpdateRewardDTO struct {
     Name string
     Description string
     PointCost int
     UserId string
+}
+
+func (dto *UpdateRewardDTO) ToModel() Reward {
+    return Reward{
+        Name: dto.Name,
+        Description: dto.Description,
+        PointCost: dto.PointCost,
+        UserId: dto.UserId,
+    }
 }
