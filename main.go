@@ -21,10 +21,10 @@ func main() {
         log.Fatal(err)
     }
     db := client.Database("habits")
-    _ = &mongodb.UserService{DB: db}
+    // _ = &mongodb.UserService{DB: db}
 
     server := http.NewAPIServer(":8080")
-    userService := &mongodb.UserService{DB: db}
+    userService := &mongodb.UserService{DB: db, CollectionName: "users"}
     userHandler := http.NewHandler(userService)
     // TODO:
     // habitService

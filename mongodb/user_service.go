@@ -12,20 +12,27 @@ type UserService struct {
 
 func (s *UserService) GetById(id string) (*habitapi.User, error) {
     empty := &habitapi.User{}
-    group, err := GetById(id, s.CollectionName, empty, s.DB)
-    return group, err
+    user, err := GetById(id, s.CollectionName, empty, s.DB)
+    return user, err
 }
 
 func (s * UserService) List() ([]*habitapi.User, error) {
     empty := []*habitapi.User{}
-    groups, err := List(s.CollectionName, empty, s.DB)
-    return groups, err
+    users, err := List(s.CollectionName, empty, s.DB)
+    return users, err
 }
 
 func (s *UserService) Create(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
-    group, id, err := Create(&dto, s.CollectionName, s.DB)
-    group.ID = id
-    return group, err
+    user, id, err := Create(&dto, s.CollectionName, s.DB)
+    user.ID = id
+    return user, err
+}
+
+func (s *UserService) Update(
+    id string, dto habitapi.UpdateUserDTO,
+) (*habitapi.User, error) {
+    user, err := Update(id, &dto, s.CollectionName, s.DB)
+    return user, err
 }
 
 func (s *UserService) Delete(id string) error {

@@ -28,6 +28,13 @@ func (s *HabitGroupService) Create(dto habitapi.CreateHabitGroupDTO) (*habitapi.
     return group, err
 }
 
+func (s *HabitGroupService) Update(
+    id string, dto habitapi.UpdateHabitGroupDTO,
+) (*habitapi.HabitGroup, error) {
+    group, err := Update(id, &dto, s.CollectionName, s.DB)
+    return group, err
+}
+
 func (s *HabitGroupService) Delete(id string) error {
     err := Delete(id, s.CollectionName, s.DB)
     return err
