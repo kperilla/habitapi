@@ -21,7 +21,7 @@ type User struct {
 type Service[T any, CDTO any, UDTO any] interface {
     GetById(id string) (*T, error)
     List() ([]*T, error)
-    Create(dto CDTO) (*T, string, error)
+    Create(dto CDTO) (*T, error)
     Update(id string, dto UDTO) (*T, error)
     Delete(id string) error
 }
@@ -66,8 +66,8 @@ type HabitGroup struct {
 type HabitGroupService interface {
     GetById(string) (*HabitGroup, error)
     List() ([]*HabitGroup, error)
-    Create(CreateHabitGroupDTO) (*HabitGroup, string, error)
-    Update(string, UpdateHabitGroupDTO) (*HabitGroup, string, error)
+    Create(CreateHabitGroupDTO) (*HabitGroup, error)
+    Update(string, UpdateHabitGroupDTO) (*HabitGroup, error)
     Delete(string) error
 }
 
@@ -83,8 +83,8 @@ type Deed struct {
 type DeedService interface {
     GetById(string) (*Deed, error)
     List() ([]*Deed, error)
-    Create(CreateDeedDTO) (*Deed, string, error)
-    Update(string, UpdateDeedDTO) (*Deed, string, error)
+    Create(CreateDeedDTO) (*Deed, error)
+    Update(string, UpdateDeedDTO) (*Deed, error)
     Delete(string) error
 }
 
@@ -99,7 +99,7 @@ type Reward struct {
 type RewardService interface {
     GetById(string) (*Reward, error)
     List() ([]*Reward, error)
-    Create(CreateRewardDTO) (*Reward, string, error)
-    Update(string, UpdateRewardDTO) (*Reward, string, error)
+    Create(CreateRewardDTO) (*Reward, error)
+    Update(string, UpdateRewardDTO) (*Reward, error)
     Delete(string) error
 }

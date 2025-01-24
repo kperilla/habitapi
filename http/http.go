@@ -10,6 +10,10 @@ import (
 
 type Handler struct {
     UserService habitapi.UserService
+    HabitGroupService habitapi.HabitGroupService
+    HabitService habitapi.HabitService
+    DeedService habitapi.DeedService
+    RewardService habitapi.RewardService
 }
 
 func NewHandler(userService habitapi.UserService) *Handler {
