@@ -16,13 +16,24 @@ type Handler struct {
     RewardService habitapi.RewardService
 }
 
-func NewHandler(userService habitapi.UserService) *Handler {
-    return &Handler{UserService: userService}
+func NewHandler(
+    userService habitapi.UserService,
+    habitGroupService habitapi.HabitGroupService,
+    habitService habitapi.HabitService,
+    deedService habitapi.DeedService,
+    rewardService habitapi.RewardService,
+) *Handler {
+    return &Handler{
+        UserService: userService,
+        HabitGroupService: habitGroupService,
+        HabitService: habitService,
+        DeedService: deedService,
+        RewardService: rewardService,
+    }
 }
 
 type APIServer struct {
     addr string
-    handler *Handler
 }
 
 func NewAPIServer(addr string) *APIServer {

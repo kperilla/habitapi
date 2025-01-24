@@ -25,22 +25,15 @@ func main() {
 
     server := http.NewAPIServer(":8080")
     userService := &mongodb.UserService{DB: db, CollectionName: "users"}
-    userHandler := http.NewHandler(userService)
-    // TODO:
-    // habitService
-    // habitHandler
-    // habitGroupService
-    // habitGroupHandler
-    // deedService
-    // deedHandler
-    // rewardService
-    // rewardHandler
+    habitGroupService := &mongodb.HabitGroupService{DB: db, CollectionName: "habit_groups"}
+    habitService := &mongodb.HabitService{DB: db, CollectionName: "habits"}
+    deedService := &mongodb.DeedService{DB: db, CollectionName: "deeds"}
+    rewardService := &mongodb.RewardService{DB: db, CollectionName: "rewards"}
+    routeHandler := http.NewHandler(
+        userService, habitGroupService, habitService, deedService, rewardService,
+    )
     err = server.Run(
-        userHandler,
-        // habitHandler,
-        // habitGroupHandler,
-        // deedHandler,
-        // rewardHandler
+        routeHandler,
     )
     if err != nil {
         log.Fatal(err)
