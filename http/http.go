@@ -48,10 +48,21 @@ func (s *APIServer) Run(handler *Handler) error {
     router.HandleFunc("POST /users/", handler.HandleCreateUser)
     // TODO: Delete Users
     // router.HandleFunc("DELETE /users/{id}", handler.HandleDeleteUser)
-    // TODO: HabitGroup
-    // TODO: Habit
-    // TODO: Deed
-    // TODO: Reward
+    router.HandleFunc("GET /habit_groups/{id}", handler.HandleGetHabitGroup)
+    router.HandleFunc("GET /habit_groups/", handler.HandleGetHabitGroups)
+    router.HandleFunc("POST /habit_groups/", handler.HandleCreateHabitGroup)
+
+    router.HandleFunc("GET /habits/{id}", handler.HandleGetHabit)
+    router.HandleFunc("GET /habits/", handler.HandleGetHabit)
+    router.HandleFunc("POST /habits/", handler.HandleCreateHabit)
+
+    router.HandleFunc("GET /deeds/{id}", handler.HandleGetDeed)
+    router.HandleFunc("GET /deeds/", handler.HandleGetDeeds)
+    router.HandleFunc("POST /deeds/", handler.HandleCreateDeed)
+
+    router.HandleFunc("GET /rewards/{id}", handler.HandleGetReward)
+    router.HandleFunc("GET /rewards/", handler.HandleGetRewards)
+    router.HandleFunc("POST /rewards/", handler.HandleCreateReward)
 
     v1 := http.NewServeMux()
     v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))
