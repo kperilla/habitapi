@@ -20,7 +20,9 @@ func InitMongo(mongo_uri string, credential Credential) (*mongo.Client, error) {
         Username: credential.Username,
         Password: credential.Password,
     }
-    client, err := mongo.Connect(options.Client().ApplyURI(mongo_uri).SetAuth(mongo_creds))
+    serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+    opts := options.Client().ApplyURI(mongo_uri).SetAuth(mongo_creds).SetServerAPIOptions(serverAPI)
+    client, err := mongo.Connect(opts)
     if err != nil {
         return nil, err
     }
