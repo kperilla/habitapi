@@ -1,14 +1,17 @@
 package http
 
 import (
-    "net/http"
-    "errors"
+	"errors"
+	"fmt"
+	"net/http"
 
-    "encoding/json"
-    "github.com/kperilla/habitapi/habitapi"
+	"encoding/json"
+
+	"github.com/kperilla/habitapi/habitapi"
 )
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("HandleCreateUser Called")
     var dto habitapi.CreateUserDTO
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
@@ -22,6 +25,7 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("HandleGetUser Called")
     id := r.PathValue("id")
     user, err := h.UserService.GetById(id)
     var errNotFound *habitapi.ErrResourceNotFound
@@ -35,6 +39,7 @@ func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("HandleGetUsers Called")
     users, err := h.UserService.List()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)

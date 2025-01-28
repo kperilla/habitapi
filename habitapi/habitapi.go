@@ -2,6 +2,8 @@ package habitapi
 
 import (
 	"time"
+
+    "go.mongodb.org/mongo-driver/v2/bson"
 )
 
 type ApiResource interface {
@@ -9,9 +11,9 @@ type ApiResource interface {
 }
 
 type User struct {
-    ID string
-    Name string
-    PointTotal int
+    ID bson.ObjectID `json:"_id" bson:"_id"`
+    Name string `json:"name"`
+    PointTotal int `json:"point_total"`
 }
 
 // func (u *User) SetID(id string) {
