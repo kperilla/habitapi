@@ -67,12 +67,15 @@ func Update[T any, DTO habitapi.DTO[T]](
 ) (*T, error) {
     objectId, _ := bson.ObjectIDFromHex(id)
     filter := bson.D{{"_id", objectId}}
-    resource := dto.ToModel()
-    update := bson.D{{"$set", resource}}
+    update := bson.D{{"$set", dto}}
     _, err := db.Collection(collectionName).UpdateOne(nil, filter, update)
     if err != nil {
         log.Fatal(err)
     }
+    // TODO: THIS IS WRONG!
+    resource := dto.ToModel()
+
+
     return &resource, err
 }
 

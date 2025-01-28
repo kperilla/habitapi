@@ -77,7 +77,9 @@ func (s *APIServer) Run(handler *Handler) error {
 }
 
 func WriteJSON(w http.ResponseWriter, status int, v interface{}) {
-    // w.WriteHeader(status)
+    if status != 200 {
+        w.WriteHeader(status)
+    }
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(v)
 }

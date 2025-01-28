@@ -1,5 +1,7 @@
 package habitapi
 
+import "go.mongodb.org/mongo-driver/v2/bson"
+
 type DTO[T any] interface {
     ToModel() T
 }
@@ -9,7 +11,11 @@ type CreateUserDTO struct {
 }
 
 func (dto *CreateUserDTO) ToModel() User {
-    return User{Name: dto.Name, PointTotal: 0}
+    return User{
+        ID: bson.NewObjectID(),
+        Name: dto.Name,
+        PointTotal: 0,
+    }
 }
 
 

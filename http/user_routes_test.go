@@ -6,6 +6,7 @@ import (
     "testing"
     "net/http"
     "net/http/httptest"
+    "go.mongodb.org/mongo-driver/v2/bson"
 
     "github.com/kperilla/habitapi/habitapi"
     "github.com/kperilla/habitapi/mock"
@@ -57,7 +58,7 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
     var mockUserService mock.UserService
     var handler Handler
     handler.UserService = &mockUserService
-    expectedUserId := "1"
+    expectedUserId, _ := bson.ObjectIDFromHex("1")
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
     mockUserService.CreateFn = func(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
@@ -72,7 +73,7 @@ func TestHandleCreateUser_ReturnsId_WhenUserCreated(t *testing.T) {
         t.Errorf("Expected status code %d, got %d", http.StatusCreated, w.Code)
     }
 
-    var id string
+    var id bson.ObjectID
     json.Unmarshal(w.Body.Bytes(), &id)
     if id != expectedUserId {
         t.Errorf("Expected id %s, got %s", expectedUserId, id)

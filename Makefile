@@ -12,7 +12,7 @@ run: build
 unit:
 	go test -v ./... -short
 
-integration: 
+integration:
 	go test -v ./... -run Integration
 
 test:
