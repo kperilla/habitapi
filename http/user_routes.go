@@ -11,12 +11,14 @@ import (
 )
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("HandleCreateUser Called")
     var dto habitapi.CreateUserDTO
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
     }
     // TODO: Validate DTO
+    if err := dto.Validate(); err != nil {
+        WriteJSON(w, http.StatusBadRequest, err)
+    }
     user, err := h.UserService.Create(dto)
     if err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
@@ -25,7 +27,6 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("HandleGetUser Called")
     id := r.PathValue("id")
     user, err := h.UserService.GetById(id)
     var errNotFound *habitapi.ErrResourceNotFound
@@ -45,6 +46,29 @@ func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
     WriteJSON(w, http.StatusOK, users)
+}
+
+func (h *Handler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
+    var dto habitapi.UpdateUserDTO
+    id := r.PathValue("id")
+    if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
+        fmt.Println("DECODE ERROR")
+        fmt.Println(err)
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    // TODO: Validate DTO
+    if err := dto.Validate(); err != nil {
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    user, err := h.UserService.Update(id, dto)
+    if err != nil {
+        fmt.Println("UPDATE ERROR")
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    WriteJSON(w, http.StatusNoContent, user.ID)
 }
 
 func (h *Handler) HandleDeleteUser(w http.ResponseWriter, r * http.Request) {

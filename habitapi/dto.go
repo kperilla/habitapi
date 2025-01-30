@@ -7,7 +7,7 @@ type DTO[T any] interface {
 }
 
 type CreateUserDTO struct {
-    Name string
+    Name string `json:"name"`
 }
 
 func (dto *CreateUserDTO) ToModel() User {
@@ -18,13 +18,24 @@ func (dto *CreateUserDTO) ToModel() User {
     }
 }
 
+func (dto *CreateUserDTO) Validate() error {
+    return nil
+}
 
 type UpdateUserDTO struct {
-    Name string
+    Name string `json:"name" bson:"name,omitempty"`
+    PointTotal int `json:"point_total" bson:"point_total,omitempty"`
 }
 
 func (dto *UpdateUserDTO) ToModel() User {
-    return User{Name: dto.Name}
+    return User{
+        Name: dto.Name,
+        PointTotal: dto.PointTotal,
+    }
+}
+
+func (dto *UpdateUserDTO) Validate() error {
+    return nil
 }
 
 type CreateHabitGroupDTO struct {

@@ -12,8 +12,8 @@ type ApiResource interface {
 
 type User struct {
     ID bson.ObjectID `json:"_id" bson:"_id"`
-    Name string `json:"name"`
-    PointTotal int `json:"point_total"`
+    Name string `json:"name" bson:"name,omitempty"`
+    PointTotal int `json:"point_total" bson:"point_total,omitempty"`
 }
 
 // func (u *User) SetID(id string) {
