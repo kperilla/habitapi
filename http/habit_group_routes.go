@@ -21,6 +21,29 @@ func (h *Handler) HandleCreateHabitGroup(w http.ResponseWriter, r *http.Request)
     WriteJSON(w, http.StatusCreated, user.ID)
 }
 
+func (h *Handler) HandleUpdateHabitGroup(w http.ResponseWriter, r *http.Request) {
+    var dto habitapi.UpdateHabitGroupDTO
+    id := r.PathValue("id")
+    if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
+        // fmt.Println("DECODE ERROR")
+        // fmt.Println(err)
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    // TODO: Validate DTO
+    // if err := dto.Validate(); err != nil {
+    //     WriteJSON(w, http.StatusBadRequest, err)
+    //     return
+    // }
+    user, err := h.HabitGroupService.Update(id, dto)
+    if err != nil {
+        // fmt.Println("UPDATE ERROR")
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    WriteJSON(w, http.StatusNoContent, user.ID)
+}
+
 func (h *Handler) HandleGetHabitGroup(w http.ResponseWriter, r *http.Request) {
     id := r.PathValue("id")
     user, err := h.HabitGroupService.GetById(id)

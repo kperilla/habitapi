@@ -1,14 +1,15 @@
 package http
 
 import (
-    "bytes"
-    "encoding/json"
-    "testing"
-    "net/http"
-    "net/http/httptest"
+	"bytes"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-    "github.com/kperilla/habitapi/habitapi"
-    "github.com/kperilla/habitapi/mock"
+	"github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/mock"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestHandleGetHabit_ReturnsHabitMatchingId_WhenIdExists(t *testing.T) {
@@ -57,7 +58,7 @@ func TestHandleCreateHabit_ReturnsId_WhenHabitCreated(t *testing.T) {
     var mockHabitService mock.HabitService
     var handler Handler
     handler.HabitService = &mockHabitService
-    expectedHabitId := "1"
+    expectedHabitId, _ := bson.ObjectIDFromHex("1")
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
     mockHabitService.CreateFn = func(dto habitapi.CreateHabitDTO) (*habitapi.Habit, error) {
@@ -72,7 +73,7 @@ func TestHandleCreateHabit_ReturnsId_WhenHabitCreated(t *testing.T) {
         t.Errorf("Expected status code %d, got %d", http.StatusCreated, w.Code)
     }
 
-    var id string
+    var id bson.ObjectID
     json.Unmarshal(w.Body.Bytes(), &id)
     if id != expectedHabitId {
         t.Errorf("Expected id %s, got %s", expectedHabitId, id)

@@ -39,9 +39,9 @@ func (dto *UpdateUserDTO) Validate() error {
 }
 
 type CreateHabitGroupDTO struct {
-    Name string
-    Description string
-    UserId string
+    Name string `json:"name"`
+    Description string `json:"description"`
+    UserId bson.ObjectID `json:"user_id"`
 }
 
 func (dto *CreateHabitGroupDTO) ToModel() HabitGroup {
@@ -53,9 +53,9 @@ func (dto *CreateHabitGroupDTO) ToModel() HabitGroup {
 }
 
 type UpdateHabitGroupDTO struct {
-    Name string
-    Description string
-    UserId string
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:description,omitempty"`
 }
 
 func (dto *UpdateHabitGroupDTO) ToModel() HabitGroup {
@@ -67,10 +67,10 @@ func (dto *UpdateHabitGroupDTO) ToModel() HabitGroup {
 }
 
 type CreateHabitDTO struct {
-    Name string
-    Description string
-    UserId string
-    HabitGroupId string
+    Name string `json:"name" bson:"name"`
+    Description string `json:"description" bson:"description"`
+    UserId bson.ObjectID `json:"user_id" bson:description"`
+    HabitGroupId bson.ObjectID `json:"habit_group_id"`
 }
 
 func (dto *CreateHabitDTO) ToModel() Habit {
@@ -82,9 +82,10 @@ func (dto *CreateHabitDTO) ToModel() Habit {
 }
 
 type UpdateHabitDTO struct {
-    Name string
-    Description string
-    UserId string
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:description,omitempty"`
+    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:habit_group_id,omitempty"`
 }
 
 func (dto *UpdateHabitDTO) ToModel() Habit {
@@ -96,10 +97,10 @@ func (dto *UpdateHabitDTO) ToModel() Habit {
 }
 
 type CreateDeedDTO struct {
-    Name string
-    Description string
-    UserId string
-    HabitId string
+    Name string `json:"name" bson:"name"`
+    Description string `json:"description" bson:"description"`
+    UserId bson.ObjectID `json:"user_id" bson:description"`
+    HabitId bson.ObjectID `json:"habit_id" bson:habit_id"`
     // Maybe want timestamp for testing??
     // Timestamp time.Time
 }
@@ -114,10 +115,10 @@ func (dto *CreateDeedDTO) ToModel() Deed {
 }
 
 type UpdateDeedDTO struct {
-    Name string
-    Description string
-    UserId string
-    HabitId string
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:description,omitempty"`
+    HabitId bson.ObjectID `json:"habit_id" bson:habit_id,omitempty"`
     // Maybe want timestamp for testing??
     // Timestamp time.Time
 }
@@ -132,10 +133,10 @@ func (dto *UpdateDeedDTO) ToModel() Deed {
 }
 
 type CreateRewardDTO struct {
-    Name string
-    Description string
-    PointCost int
-    UserId string
+    Name string `json:"name" bson:"name"`
+    Description string `json:"description" bson:"description"`
+    PointCost int `json:"point_cost" bson:"point_cost"`
+    UserId bson.ObjectID `json:"user_id" bson:description"`
 }
 
 func (dto *CreateRewardDTO) ToModel() Reward {
@@ -148,10 +149,10 @@ func (dto *CreateRewardDTO) ToModel() Reward {
 }
 
 type UpdateRewardDTO struct {
-    Name string
-    Description string
-    PointCost int
-    UserId string
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    PointCost int `json:"point_cost" bson:"point_cost,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:description,omitempty"`
 }
 
 func (dto *UpdateRewardDTO) ToModel() Reward {

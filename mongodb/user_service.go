@@ -2,7 +2,6 @@ package mongodb
 
 import (
     "go.mongodb.org/mongo-driver/v2/mongo"
-    "go.mongodb.org/mongo-driver/v2/bson"
     "github.com/kperilla/habitapi/habitapi"
 )
 
@@ -25,7 +24,7 @@ func (s * UserService) List() ([]*habitapi.User, error) {
 
 func (s *UserService) Create(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
     user, id, err := Create(&dto, s.CollectionName, s.DB)
-    user.ID, _ = bson.ObjectIDFromHex(id)
+    user.ID = id
     return user, err
 }
 

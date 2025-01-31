@@ -1,14 +1,15 @@
 package http
 
 import (
-    "bytes"
-    "encoding/json"
-    "testing"
-    "net/http"
-    "net/http/httptest"
+	"bytes"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-    "github.com/kperilla/habitapi/habitapi"
-    "github.com/kperilla/habitapi/mock"
+	"github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/mock"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestHandleGetReward_ReturnsRewardMatchingId_WhenIdExists(t *testing.T) {
@@ -57,7 +58,7 @@ func TestHandleCreateReward_ReturnsId_WhenRewardCreated(t *testing.T) {
     var mockRewardService mock.RewardService
     var handler Handler
     handler.RewardService = &mockRewardService
-    expectedRewardId := "1"
+    expectedRewardId, _ := bson.ObjectIDFromHex("1")
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
     mockRewardService.CreateFn = func(dto habitapi.CreateRewardDTO) (*habitapi.Reward, error) {
@@ -72,7 +73,7 @@ func TestHandleCreateReward_ReturnsId_WhenRewardCreated(t *testing.T) {
         t.Errorf("Expected status code %d, got %d", http.StatusCreated, w.Code)
     }
 
-    var id string
+    var id bson.ObjectID
     json.Unmarshal(w.Body.Bytes(), &id)
     if id != expectedRewardId {
         t.Errorf("Expected id %s, got %s", expectedRewardId, id)

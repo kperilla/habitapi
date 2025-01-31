@@ -49,13 +49,13 @@ func Create[T any, DTO habitapi.DTO[T]] (
     dto DTO,
     collectionName string,
     db *mongo.Database,
-) (*T, string, error) {
+) (*T, bson.ObjectID, error) {
     resource := dto.ToModel()
     res, err := db.Collection(collectionName).InsertOne(nil, resource)
     if err != nil {
         log.Fatal(err)
     }
-    id := res.InsertedID.(bson.ObjectID).Hex()
+    id := res.InsertedID.(bson.ObjectID)
     return &resource, id, err
 }
 

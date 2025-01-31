@@ -1,14 +1,15 @@
 package http
 
 import (
-    "bytes"
-    "encoding/json"
-    "testing"
-    "net/http"
-    "net/http/httptest"
+	"bytes"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-    "github.com/kperilla/habitapi/habitapi"
-    "github.com/kperilla/habitapi/mock"
+	"github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/mock"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestHandleGetDeed_ReturnsDeedMatchingId_WhenIdExists(t *testing.T) {
@@ -57,7 +58,7 @@ func TestHandleCreateDeed_ReturnsId_WhenDeedCreated(t *testing.T) {
     var mockDeedService mock.DeedService
     var handler Handler
     handler.DeedService = &mockDeedService
-    expectedDeedId := "1"
+    expectedDeedId, _ := bson.ObjectIDFromHex("1")
     postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
 
     mockDeedService.CreateFn = func(dto habitapi.CreateDeedDTO) (*habitapi.Deed, error) {
@@ -72,7 +73,7 @@ func TestHandleCreateDeed_ReturnsId_WhenDeedCreated(t *testing.T) {
         t.Errorf("Expected status code %d, got %d", http.StatusCreated, w.Code)
     }
 
-    var id string
+    var id bson.ObjectID
     json.Unmarshal(w.Body.Bytes(), &id)
     if id != expectedDeedId {
         t.Errorf("Expected id %s, got %s", expectedDeedId, id)

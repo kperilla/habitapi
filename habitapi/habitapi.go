@@ -37,12 +37,11 @@ type UserService interface {
 }
 
 type Habit struct {
-    ID string
-    Name string
-    Description string
-    // Hex representation of ObjectId in order to keep imports clean
-    UserId string
-    HabitGroupId string
+    ID bson.ObjectID `json:"_id" bson:"_id"`
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
+    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id,omitempty"`
 }
 
 type HabitService interface {
@@ -54,10 +53,10 @@ type HabitService interface {
 }
 
 type HabitGroup struct {
-    ID string
-    Name string
-    Description string
-    UserId string
+    ID bson.ObjectID `json:"_id" bson:"_id"`
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
 }
 
 // NOTE: I wasn't able to make this work from within the generic functions
@@ -74,12 +73,12 @@ type HabitGroupService interface {
 }
 
 type Deed struct {
-    ID string
+    ID bson.ObjectID `json:"_id" bson:"_id"`
     Timestamp time.Time
-    Name string
-    Description string
-    UserId string
-    HabitId string
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
+    HabitId bson.ObjectID `json:"habit_id" bson:"habit_id,omitempty"`
 }
 
 type DeedService interface {
@@ -91,11 +90,12 @@ type DeedService interface {
 }
 
 type Reward struct {
-    ID string
-    Name string
-    Description string
-    PointCost int
-    UserId string
+    ID bson.ObjectID `json:"_id" bson:"_id"`
+    Timestamp time.Time `json:"timestamp" bson:"timestamp,omitempty"`
+    Name string `json:"name" bson:"name,omitempty"`
+    Description string `json:"description" bson:"description,omitempty"`
+    PointCost int `json:"point_cost" bson:"point_cost,omitempty"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
 }
 
 type RewardService interface {

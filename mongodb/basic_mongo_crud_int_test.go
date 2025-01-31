@@ -53,7 +53,7 @@ func TestGetCreateUserIntegration(t *testing.T) {
     // Update
     newName := "ChangedTest"
     var updateDto = habitapi.UpdateUserDTO{Name: newName}
-    changedUser, err := Update(createdId2, &updateDto, collectionName, db)
+    changedUser, err := Update(createdId2.Hex(), &updateDto, collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Update failed")
@@ -64,7 +64,7 @@ func TestGetCreateUserIntegration(t *testing.T) {
 
     // Get
     emptyUser := &habitapi.User{}
-    retrievedUser, err := GetById(createdId, collectionName, emptyUser, db)
+    retrievedUser, err := GetById(createdId.Hex(), collectionName, emptyUser, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
@@ -73,7 +73,7 @@ func TestGetCreateUserIntegration(t *testing.T) {
         t.Errorf("Expected user name %s, got %s", user1.Name, retrievedUser.Name)
     }
     emptyUser = &habitapi.User{}
-    retrievedUser2, err := GetById(createdId2, collectionName, emptyUser, db)
+    retrievedUser2, err := GetById(createdId2.Hex(), collectionName, emptyUser, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
@@ -94,12 +94,12 @@ func TestGetCreateUserIntegration(t *testing.T) {
     }
 
     // Delete
-    err = Delete(createdId, collectionName, db)
+    err = Delete(createdId.Hex(), collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")
     }
-    err = Delete(createdId2, collectionName, db)
+    err = Delete(createdId2.Hex(), collectionName, db)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Delete failed")
