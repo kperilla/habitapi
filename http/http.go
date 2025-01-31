@@ -56,20 +56,20 @@ func (s *APIServer) Run(handler *Handler) error {
 
     router.HandleFunc("GET /habits/{id}", handler.HandleGetHabit)
     router.HandleFunc("POST /habits/", handler.HandleCreateHabit)
-    router.HandleFunc("GET /habits/", handler.HandleGetHabit)
-    // router.HandleFunc("PUT /habits/{id}", handler.HandleUpdateHabit)
+    router.HandleFunc("GET /habits/", handler.HandleGetHabits)
+    router.HandleFunc("PUT /habits/{id}", handler.HandleUpdateHabit)
     router.HandleFunc("DELETE /habits/{id}", handler.HandleDeleteHabit)
 
     router.HandleFunc("GET /deeds/{id}", handler.HandleGetDeed)
     router.HandleFunc("POST /deeds/", handler.HandleCreateDeed)
     router.HandleFunc("GET /deeds/", handler.HandleGetDeeds)
-    // router.HandleFunc("PUT /deeds/{id}", handler.HandleUpdateDeed)
+    router.HandleFunc("PUT /deeds/{id}", handler.HandleUpdateDeed)
     router.HandleFunc("DELETE /deeds/{id}", handler.HandleDeleteDeed)
 
     router.HandleFunc("GET /rewards/{id}", handler.HandleGetReward)
     router.HandleFunc("POST /rewards/", handler.HandleCreateReward)
     router.HandleFunc("GET /rewards/", handler.HandleGetRewards)
-    // router.HandleFunc("PUT /rewards/{id}", handler.HandleUpdateReward)
+    router.HandleFunc("PUT /rewards/{id}", handler.HandleUpdateReward)
     router.HandleFunc("DELETE /rewards/{id}", handler.HandleDeleteReward)
 
     router.HandleFunc("GET /", handler.HandleHealthcheck)

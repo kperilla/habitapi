@@ -59,7 +59,9 @@ func TestHandleCreateHabit_ReturnsId_WhenHabitCreated(t *testing.T) {
     var handler Handler
     handler.HabitService = &mockHabitService
     expectedHabitId, _ := bson.ObjectIDFromHex("1")
-    postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
+    postBody := bytes.NewBuffer([]byte(
+        `{"name": "foobar", "user_id": "000000000000000000000001", "habit_group_id": "000000000000000000000001" }`,
+    ))
 
     mockHabitService.CreateFn = func(dto habitapi.CreateHabitDTO) (*habitapi.Habit, error) {
         return &habitapi.Habit{ID: expectedHabitId, Name: "foobar"}, nil

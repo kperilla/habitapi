@@ -59,7 +59,7 @@ func TestHandleCreateHabitGroup_ReturnsId_WhenHabitGroupCreated(t *testing.T) {
     var handler Handler
     handler.HabitGroupService = &mockHabitGroupService
     expectedHabitGroupId, _ := bson.ObjectIDFromHex("1")
-    postBody := bytes.NewBuffer([]byte(`{"name": "foobar"}`))
+    postBody := bytes.NewBuffer([]byte(`{"name": "foobar", "user_id": "000000000000000000000001"}`))
 
     mockHabitGroupService.CreateFn = func(dto habitapi.CreateHabitGroupDTO) (*habitapi.HabitGroup, error) {
         return &habitapi.HabitGroup{ID: expectedHabitGroupId, Name: "foobar"}, nil

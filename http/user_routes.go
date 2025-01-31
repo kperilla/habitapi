@@ -14,14 +14,17 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateUserDTO
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
+        return
     }
     // TODO: Validate DTO
     if err := dto.Validate(); err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
+        return
     }
     user, err := h.UserService.Create(dto)
     if err != nil {
         WriteJSON(w, http.StatusBadRequest, err)
+        return
     }
     WriteJSON(w, http.StatusCreated, user.ID)
 }
@@ -33,8 +36,10 @@ func (h *Handler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
     switch {
         case errors.As(err, &errNotFound):
             WriteJSON(w, http.StatusNotFound, err)
+            return
         case err != nil:
             WriteJSON(w, http.StatusInternalServerError, err)
+            return
     }
     WriteJSON(w, http.StatusOK, user)
 }
@@ -44,6 +49,7 @@ func (h *Handler) HandleGetUsers(w http.ResponseWriter, r *http.Request) {
     users, err := h.UserService.List()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
+        return
     }
     WriteJSON(w, http.StatusOK, users)
 }
@@ -76,6 +82,7 @@ func (h *Handler) HandleDeleteUser(w http.ResponseWriter, r * http.Request) {
     err := h.UserService.Delete(id)
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
+        return
     }
     WriteJSON(w, http.StatusNoContent, id)
 }

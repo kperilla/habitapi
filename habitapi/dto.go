@@ -7,7 +7,7 @@ type DTO[T any] interface {
 }
 
 type CreateUserDTO struct {
-    Name string `json:"name"`
+    Name string `json:"name" validate:"required"`
 }
 
 func (dto *CreateUserDTO) ToModel() User {
@@ -22,6 +22,7 @@ func (dto *CreateUserDTO) Validate() error {
     return nil
 }
 
+// TODO: I may want a user-accessible and a svc-accessible version
 type UpdateUserDTO struct {
     Name string `json:"name" bson:"name,omitempty"`
     PointTotal int `json:"point_total" bson:"point_total,omitempty"`
@@ -39,9 +40,9 @@ func (dto *UpdateUserDTO) Validate() error {
 }
 
 type CreateHabitGroupDTO struct {
-    Name string `json:"name"`
+    Name string `json:"name" validate:"required"`
     Description string `json:"description"`
-    UserId bson.ObjectID `json:"user_id"`
+    UserId bson.ObjectID `json:"user_id" validate:"required"`
 }
 
 func (dto *CreateHabitGroupDTO) ToModel() HabitGroup {
@@ -68,10 +69,10 @@ func (dto *UpdateHabitGroupDTO) ToModel() HabitGroup {
 }
 
 type CreateHabitDTO struct {
-    Name string `json:"name" bson:"name"`
+    Name string `json:"name" bson:"name" validate:"required"`
     Description string `json:"description" bson:"description"`
-    UserId bson.ObjectID `json:"user_id" bson:"user_id"`
-    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id" validate:"required"`
+    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id" validate:"required"`
 }
 
 func (dto *CreateHabitDTO) ToModel() Habit {
@@ -80,6 +81,7 @@ func (dto *CreateHabitDTO) ToModel() Habit {
         Name: dto.Name,
         Description: dto.Description,
         UserId: dto.UserId,
+        HabitGroupId: dto.HabitGroupId,
     }
 }
 
@@ -87,7 +89,7 @@ type UpdateHabitDTO struct {
     Name string `json:"name" bson:"name,omitempty"`
     Description string `json:"description" bson:"description,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
-    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:habit_group_id,omitempty"`
+    HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id,omitempty"`
 }
 
 func (dto *UpdateHabitDTO) ToModel() Habit {
@@ -99,10 +101,10 @@ func (dto *UpdateHabitDTO) ToModel() Habit {
 }
 
 type CreateDeedDTO struct {
-    Name string `json:"name" bson:"name"`
+    Name string `json:"name" bson:"name" validate:"required"`
     Description string `json:"description" bson:"description"`
-    UserId bson.ObjectID `json:"user_id" bson:"user_id"`
-    HabitId bson.ObjectID `json:"habit_id" bson:"habit_id"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id" validate:"required"`
+    HabitId bson.ObjectID `json:"habit_id" bson:"habit_id" validate:"required"`
     // Maybe want timestamp for testing??
     // Timestamp time.Time
 }
@@ -136,10 +138,10 @@ func (dto *UpdateDeedDTO) ToModel() Deed {
 }
 
 type CreateRewardDTO struct {
-    Name string `json:"name" bson:"name"`
+    Name string `json:"name" bson:"name" validate:"required"`
     Description string `json:"description" bson:"description"`
-    PointCost int `json:"point_cost" bson:"point_cost"`
-    UserId bson.ObjectID `json:"user_id" bson:"user_id"`
+    PointCost int `json:"point_cost" bson:"point_cost" validate:"required"`
+    UserId bson.ObjectID `json:"user_id" bson:"user_id" validate:"required"`
 }
 
 func (dto *CreateRewardDTO) ToModel() Reward {

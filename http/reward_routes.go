@@ -20,6 +20,28 @@ func (h *Handler) HandleCreateReward(w http.ResponseWriter, r *http.Request) {
     }
     WriteJSON(w, http.StatusCreated, user.ID)
 }
+func (h *Handler) HandleUpdateReward(w http.ResponseWriter, r *http.Request) {
+    var dto habitapi.UpdateRewardDTO
+    id := r.PathValue("id")
+    if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
+        // fmt.Println("DECODE ERROR")
+        // fmt.Println(err)
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    // TODO: Validate DTO
+    // if err := dto.Validate(); err != nil {
+    //     WriteJSON(w, http.StatusBadRequest, err)
+    //     return
+    // }
+    user, err := h.RewardService.Update(id, dto)
+    if err != nil {
+        // fmt.Println("UPDATE ERROR")
+        WriteJSON(w, http.StatusBadRequest, err)
+        return
+    }
+    WriteJSON(w, http.StatusNoContent, user.ID)
+}
 
 func (h *Handler) HandleGetReward(w http.ResponseWriter, r *http.Request) {
     id := r.PathValue("id")

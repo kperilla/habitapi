@@ -1,8 +1,8 @@
 package mongodb
 
 import (
-    "go.mongodb.org/mongo-driver/v2/mongo"
-    "github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/habitapi"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 type HabitService struct {
