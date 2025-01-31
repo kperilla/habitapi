@@ -1,7 +1,6 @@
 package mongodb
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/kperilla/habitapi/habitapi"
