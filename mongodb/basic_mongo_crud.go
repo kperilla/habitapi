@@ -1,11 +1,12 @@
 package mongodb
 
 import (
-    "log"
+	"fmt"
+	"log"
 
-    "go.mongodb.org/mongo-driver/v2/mongo"
-    "go.mongodb.org/mongo-driver/v2/bson"
-    "github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/habitapi"
+	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 func GetById[T any](
