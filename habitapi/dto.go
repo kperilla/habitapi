@@ -155,15 +155,23 @@ type CreateRewardDTO struct {
     Description string `json:"description" bson:"description"`
     PointCost int `json:"point_cost" bson:"point_cost" validate:"required"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id" validate:"required"`
+    IsEarned bool `json:"is_earned" bson:"is_earned"`
+    EarnedTimestamp time.Time `json:"earned_timestamp" bson:"earned_timestamp"`
 }
 
 func (dto *CreateRewardDTO) ToModel() Reward {
+    timestamp := dto.EarnedTimestamp
+    if !dto.IsEarned {
+        timestamp = time.Time{}
+    }
     return Reward{
         ID: bson.NewObjectID(),
         Name: dto.Name,
         Description: dto.Description,
         PointCost: dto.PointCost,
         UserId: dto.UserId,
+        IsEarned: dto.IsEarned,
+        EarnedTimestamp: timestamp,
     }
 }
 
@@ -172,6 +180,8 @@ type UpdateRewardDTO struct {
     Description string `json:"description" bson:"description,omitempty"`
     PointCost int `json:"point_cost" bson:"point_cost,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
+    IsEarned bool `json:"is_earned" bson:"is_earned,omitempty"`
+    EarnedTimestamp time.Time `json:"earned_timestamp" bson:"earned_timestamp,omitempty"`
 }
 
 func (dto *UpdateRewardDTO) ToModel() Reward {
@@ -180,5 +190,7 @@ func (dto *UpdateRewardDTO) ToModel() Reward {
         Description: dto.Description,
         PointCost: dto.PointCost,
         UserId: dto.UserId,
+        IsEarned: dto.IsEarned,
+        EarnedTimestamp: dto.EarnedTimestamp,
     }
 }
