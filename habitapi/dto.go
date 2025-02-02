@@ -137,8 +137,7 @@ type UpdateDeedDTO struct {
     Description string `json:"description" bson:"description,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
     HabitId bson.ObjectID `json:"habit_id" bson:"habit_id,omitempty"`
-    // Maybe want timestamp for testing??
-    // Timestamp time.Time
+    Timestamp time.Time `json:"timestamp" bson:"timestamp,omitempty"`
 }
 
 func (dto *UpdateDeedDTO) ToModel() Deed {
@@ -147,6 +146,7 @@ func (dto *UpdateDeedDTO) ToModel() Deed {
         Description: dto.Description,
         UserId: dto.UserId,
         HabitId: dto.HabitId,
+        Timestamp: dto.Timestamp,
     }
 }
 

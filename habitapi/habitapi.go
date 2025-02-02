@@ -96,6 +96,7 @@ type Reward struct {
     Description string `json:"description" bson:"description,omitempty"`
     PointCost int `json:"point_cost" bson:"point_cost,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
+    // TODO: maybe IsEarned? and EarnedTimestamp?
 }
 
 type RewardService interface {
