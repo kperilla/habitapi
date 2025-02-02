@@ -29,8 +29,7 @@ func (h *Handler) HandleUpdateDeed(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.UpdateDeedDTO
     id := r.PathValue("id")
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
-        // fmt.Println("DECODE ERROR")
-        // fmt.Println(err)
+        fmt.Println(err)
         WriteJSON(w, http.StatusBadRequest, err)
         return
     }

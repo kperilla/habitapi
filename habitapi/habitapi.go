@@ -91,12 +91,12 @@ type DeedService interface {
 
 type Reward struct {
     ID bson.ObjectID `json:"_id" bson:"_id"`
-    Timestamp time.Time `json:"timestamp" bson:"timestamp,omitempty"`
     Name string `json:"name" bson:"name,omitempty"`
     Description string `json:"description" bson:"description,omitempty"`
     PointCost int `json:"point_cost" bson:"point_cost,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
-    // TODO: maybe IsEarned? and EarnedTimestamp?
+    IsEarned bool `json:"is_earned" bson:"is_earned,omitempty"`
+    EarnedTimestamp time.Time `json:"earned_timestamp" bson:"earned_timestamp,omitempty"`
 }
 
 type RewardService interface {
