@@ -1,6 +1,11 @@
 package habitapi
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"fmt"
+	"time"
+
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
 
 type DTO[T any] interface {
     ToModel() T
@@ -105,17 +110,25 @@ type CreateDeedDTO struct {
     Description string `json:"description" bson:"description"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id" validate:"required"`
     HabitId bson.ObjectID `json:"habit_id" bson:"habit_id" validate:"required"`
-    // Maybe want timestamp for testing??
-    // Timestamp time.Time
+    Timestamp time.Time `json:"timestamp" bson:"timestamp"`
 }
 
 func (dto *CreateDeedDTO) ToModel() Deed {
+    fmt.Println()
+    fmt.Println("Timestamp")
+    fmt.Println(dto.Timestamp)
+    timestamp := dto.Timestamp
+    if timestamp.IsZero() {
+        timestamp = time.Now()
+    }
+
     return Deed{
         ID: bson.NewObjectID(),
         Name: dto.Name,
         Description: dto.Description,
         UserId: dto.UserId,
         HabitId: dto.HabitId,
+        Timestamp: timestamp,
     }
 }
 

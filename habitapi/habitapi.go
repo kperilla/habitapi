@@ -74,7 +74,7 @@ type HabitGroupService interface {
 
 type Deed struct {
     ID bson.ObjectID `json:"_id" bson:"_id"`
-    Timestamp time.Time
+    Timestamp time.Time `json:"timestamp" bson:"timestamp,omitempty"`
     Name string `json:"name" bson:"name,omitempty"`
     Description string `json:"description" bson:"description,omitempty"`
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
