@@ -12,17 +12,25 @@ import (
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateUserDTO
+    fmt.Println("Calling Handle Create User")
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
+        fmt.Println("Decode Error")
+        fmt.Println(err.Error())
+        // fmt.Println(json.NewDecoder(r.Body))
         WriteJSON(w, http.StatusBadRequest, err)
         return
     }
     // TODO: Validate DTO
     if err := dto.Validate(); err != nil {
+        fmt.Println(err)
+        fmt.Println("Validate Error")
         WriteJSON(w, http.StatusBadRequest, err)
         return
     }
     user, err := h.UserService.Create(dto)
     if err != nil {
+        fmt.Println(err)
+        fmt.Println("Create Error")
         WriteJSON(w, http.StatusBadRequest, err)
         return
     }

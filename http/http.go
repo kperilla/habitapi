@@ -5,6 +5,7 @@ import (
     "log"
 
     "encoding/json"
+    "github.com/rs/cors"
     "github.com/kperilla/habitapi/habitapi"
 )
 
@@ -76,10 +77,11 @@ func (s *APIServer) Run(handler *Handler) error {
 
     v1 := http.NewServeMux()
     v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))
+    ensureCorsHandler := cors.Default().Handler(router)
 
     server := http.Server{
         Addr: s.addr,
-        Handler: router,
+        Handler: ensureCorsHandler,
     }
     log.Println("Listening on ", s.addr)
     return server.ListenAndServe()
