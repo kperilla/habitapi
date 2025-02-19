@@ -3,10 +3,15 @@ package http
 import (
     "net/http"
     "errors"
+    "html/template"
 
     "encoding/json"
     "github.com/kperilla/habitapi/habitapi"
 )
+
+type RewardsViewData struct {
+    Rewards []*habitapi.Reward
+}
 
 func (h *Handler) HandleCreateReward(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateRewardDTO
@@ -71,4 +76,18 @@ func (h *Handler) HandleDeleteReward(w http.ResponseWriter, r * http.Request) {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
     WriteJSON(w, http.StatusNoContent, id)
+}
+
+func (h *Handler) HandleGetRewardView(w http.ResponseWriter, r *http.Request) {
+    viewPath := "views/rewards.html"
+    t := template.Must(template.ParseFiles(viewPath))
+    rewards, err := h.RewardService.List()
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    viewData := RewardsViewData{Rewards: rewards}
+    err = t.Execute(w, viewData)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
 }

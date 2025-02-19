@@ -4,11 +4,16 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+    "html/template"
 
 	"encoding/json"
 
 	"github.com/kperilla/habitapi/habitapi"
 )
+
+type DeedsViewData struct {
+    Deeds []*habitapi.Deed
+}
 
 func (h *Handler) HandleCreateDeed(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateDeedDTO
@@ -79,4 +84,18 @@ func (h *Handler) HandleDeleteDeed(w http.ResponseWriter, r * http.Request) {
         return
     }
     WriteJSON(w, http.StatusNoContent, id)
+}
+
+func (h *Handler) HandleGetDeedView(w http.ResponseWriter, r *http.Request) {
+    viewPath := "views/deeds.html"
+    t := template.Must(template.ParseFiles(viewPath))
+    deeds, err := h.DeedService.List()
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    viewData := DeedsViewData{Deeds: deeds}
+    err = t.Execute(w, viewData)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
 }

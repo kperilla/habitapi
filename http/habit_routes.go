@@ -4,12 +4,17 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+    "html/template"
 
 	"encoding/json"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/kperilla/habitapi/habitapi"
 )
+
+type HabitsViewData struct {
+    Habits []*habitapi.Habit
+}
 
 func (h *Handler) HandleCreateHabit(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateHabitDTO
@@ -90,4 +95,18 @@ func (h *Handler) HandleDeleteHabit(w http.ResponseWriter, r * http.Request) {
         return
     }
     WriteJSON(w, http.StatusNoContent, id)
+}
+
+func (h *Handler) HandleGetHabitView(w http.ResponseWriter, r *http.Request) {
+    viewPath := "views/habits.html"
+    t := template.Must(template.ParseFiles(viewPath))
+    habits, err := h.HabitService.List()
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    viewData := HabitsViewData{Habits: habits}
+    err = t.Execute(w, viewData)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
 }
