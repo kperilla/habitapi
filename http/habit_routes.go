@@ -97,7 +97,7 @@ func (h *Handler) HandleDeleteHabit(w http.ResponseWriter, r * http.Request) {
     WriteJSON(w, http.StatusNoContent, id)
 }
 
-func (h *Handler) HandleGetHabitView(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) HandleGetHabitsView(w http.ResponseWriter, r *http.Request) {
     viewPath := "views/habits.html"
     t := template.Must(template.ParseFiles(viewPath))
     habits, err := h.HabitService.List()

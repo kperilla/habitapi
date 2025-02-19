@@ -86,7 +86,7 @@ func (h *Handler) HandleDeleteDeed(w http.ResponseWriter, r * http.Request) {
     WriteJSON(w, http.StatusNoContent, id)
 }
 
-func (h *Handler) HandleGetDeedView(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) HandleGetDeedsView(w http.ResponseWriter, r *http.Request) {
     viewPath := "views/deeds.html"
     t := template.Must(template.ParseFiles(viewPath))
     deeds, err := h.DeedService.List()

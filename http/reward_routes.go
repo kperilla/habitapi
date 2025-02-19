@@ -78,7 +78,7 @@ func (h *Handler) HandleDeleteReward(w http.ResponseWriter, r * http.Request) {
     WriteJSON(w, http.StatusNoContent, id)
 }
 
-func (h *Handler) HandleGetRewardView(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) HandleGetRewardsView(w http.ResponseWriter, r *http.Request) {
     viewPath := "views/rewards.html"
     t := template.Must(template.ParseFiles(viewPath))
     rewards, err := h.RewardService.List()
