@@ -4,12 +4,17 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+    "html/template"
 
 	"encoding/json"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/kperilla/habitapi/habitapi"
 )
+
+type HGViewData struct {
+    HabitGroups []*habitapi.HabitGroup
+}
 
 func (h *Handler) HandleCreateHabitGroup(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateHabitGroupDTO
@@ -72,15 +77,25 @@ func (h *Handler) HandleGetHabitGroup(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetHabitGroups(w http.ResponseWriter, r *http.Request) {
-    users, err := h.HabitGroupService.List()
+    groups, err := h.HabitGroupService.List()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
-    WriteJSON(w, http.StatusOK, users)
+    WriteJSON(w, http.StatusOK, groups)
 }
 
 func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
-    http.ServeFile(w, r, "views/test.html")
+    viewPath := "views/habitGroups.html"
+    t := template.Must(template.ParseFiles(viewPath))
+    groups, err := h.HabitGroupService.List()
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
+    viewData := HGViewData{HabitGroups: groups}
+    err = t.Execute(w, viewData)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+    }
 }
 
 func (h *Handler) HandleDeleteHabitGroup(w http.ResponseWriter, r * http.Request) {
