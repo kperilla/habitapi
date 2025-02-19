@@ -79,6 +79,10 @@ func (h *Handler) HandleGetHabitGroups(w http.ResponseWriter, r *http.Request) {
     WriteJSON(w, http.StatusOK, users)
 }
 
+func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
+    http.ServeFile(w, r, "views/test.html")
+}
+
 func (h *Handler) HandleDeleteHabitGroup(w http.ResponseWriter, r * http.Request) {
     id := r.PathValue("id")
     err := h.HabitGroupService.Delete(id)
