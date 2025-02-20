@@ -43,6 +43,10 @@ func NewAPIServer(addr string) *APIServer {
 
 func (s *APIServer) Run(handler *Handler) error {
     router := http.NewServeMux()
+
+    fs := http.FileServer(http.Dir("./views/static"))
+    router.Handle("/static/", http.StripPrefix("/static/", fs))
+
     router.HandleFunc("GET /api/v1/users/{id}", handler.HandleGetUser)
     router.HandleFunc("POST /api/v1/users/", handler.HandleCreateUser)
     router.HandleFunc("GET /api/v1/users/", handler.HandleGetUsers)
@@ -78,8 +82,9 @@ func (s *APIServer) Run(handler *Handler) error {
     router.HandleFunc("GET /rewards/", handler.HandleGetRewardsView)
 
     router.HandleFunc("GET /api/v1/", handler.HandleHealthcheck)
-    router.HandleFunc("GET /", handler.HandleIndexView)
+    router.HandleFunc("/", handler.HandleIndexView)
 
+    // router.Handle("/static/", fs)
     // v1 := http.NewServeMux()
     // v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))
     ensureCorsHandler := cors.Default().Handler(router)
