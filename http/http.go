@@ -78,7 +78,7 @@ func (s *APIServer) Run(handler *Handler) error {
     router.HandleFunc("GET /rewards/", handler.HandleGetRewardsView)
 
     router.HandleFunc("GET /api/v1/", handler.HandleHealthcheck)
-    // router.HandleFunc("GET /", handler.HandleIndexView)
+    router.HandleFunc("GET /", handler.HandleIndexView)
 
     // v1 := http.NewServeMux()
     // v1.Handle("/api/v1/", http.StripPrefix("/api/v1", router))
