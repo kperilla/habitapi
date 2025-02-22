@@ -23,16 +23,18 @@ func (s * HabitGroupService) List() ([]*habitapi.HabitGroup, error) {
 }
 
 func (s *HabitGroupService) Create(dto habitapi.CreateHabitGroupDTO) (*habitapi.HabitGroup, error) {
-    group, id, err := Create(&dto, s.CollectionName, s.DB)
+    groupRaw, id, err := Create(&dto, s.CollectionName, s.DB)
+    group := groupRaw.(habitapi.HabitGroup)
     group.ID = id
-    return group, err
+    return &group, err
 }
 
 func (s *HabitGroupService) Update(
     id string, dto habitapi.UpdateHabitGroupDTO,
 ) (*habitapi.HabitGroup, error) {
-    group, err := Update(id, &dto, s.CollectionName, s.DB)
-    return group, err
+    groupRaw, err := Update(id, &dto, s.CollectionName, s.DB)
+    group := groupRaw.(habitapi.HabitGroup)
+    return &group, err
 }
 
 func (s *HabitGroupService) Delete(id string) error {

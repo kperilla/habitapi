@@ -23,16 +23,18 @@ func (s * RewardService) List() ([]*habitapi.Reward, error) {
 }
 
 func (s *RewardService) Create(dto habitapi.CreateRewardDTO) (*habitapi.Reward, error) {
-    reward, id, err := Create(&dto, s.CollectionName, s.DB)
+    rewardRaw, id, err := Create(&dto, s.CollectionName, s.DB)
+    reward := rewardRaw.(habitapi.Reward)
     reward.ID = id
-    return reward, err
+    return &reward, err
 }
 
 func (s *RewardService) Update(
     id string, dto habitapi.UpdateRewardDTO,
 ) (*habitapi.Reward, error) {
-    reward, err := Update(id, &dto, s.CollectionName, s.DB)
-    return reward, err
+    rewardRaw, err := Update(id, &dto, s.CollectionName, s.DB)
+    reward := rewardRaw.(habitapi.Reward)
+    return &reward, err
 }
 
 func (s *RewardService) Delete(id string) error {

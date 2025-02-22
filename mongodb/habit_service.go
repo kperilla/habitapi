@@ -23,16 +23,18 @@ func (s * HabitService) List() ([]*habitapi.Habit, error) {
 }
 
 func (s *HabitService) Create(dto habitapi.CreateHabitDTO) (*habitapi.Habit, error) {
-    habit, id, err := Create(&dto, s.CollectionName, s.DB)
+    habitRaw, id, err := Create(&dto, s.CollectionName, s.DB)
+    habit := habitRaw.(habitapi.Habit)
     habit.ID = id
-    return habit, err
+    return &habit, err
 }
 
 func (s *HabitService) Update(
     id string, dto habitapi.UpdateHabitDTO,
 ) (*habitapi.Habit, error) {
-    habit, err := Update(id, &dto, s.CollectionName, s.DB)
-    return habit, err
+    habitRaw, err := Update(id, &dto, s.CollectionName, s.DB)
+    habit := habitRaw.(habitapi.Habit)
+    return &habit, err
 }
 
 func (s *HabitService) Delete(id string) error {

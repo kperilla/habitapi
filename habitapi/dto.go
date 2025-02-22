@@ -7,15 +7,18 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-type DTO[T any] interface {
-    ToModel() T
+// type DTO[T any] interface {
+//     ToModel() T
+// }
+type DTO interface {
+    ToModel() interface{}
 }
 
 type CreateUserDTO struct {
     Name string `json:"name" validate:"required"`
 }
 
-func (dto *CreateUserDTO) ToModel() User {
+func (dto *CreateUserDTO) ToModel() interface{} {
     return User{
         ID: bson.NewObjectID(),
         Name: dto.Name,
@@ -33,7 +36,7 @@ type UpdateUserDTO struct {
     PointTotal int `json:"point_total" bson:"point_total,omitempty"`
 }
 
-func (dto *UpdateUserDTO) ToModel() User {
+func (dto *UpdateUserDTO) ToModel() interface{} {
     return User{
         Name: dto.Name,
         PointTotal: dto.PointTotal,
@@ -50,7 +53,7 @@ type CreateHabitGroupDTO struct {
     UserId bson.ObjectID `json:"user_id" validate:"required"`
 }
 
-func (dto *CreateHabitGroupDTO) ToModel() HabitGroup {
+func (dto *CreateHabitGroupDTO) ToModel() interface{} {
     return HabitGroup{
         ID: bson.NewObjectID(),
         Name: dto.Name,
@@ -65,7 +68,7 @@ type UpdateHabitGroupDTO struct {
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
 }
 
-func (dto *UpdateHabitGroupDTO) ToModel() HabitGroup {
+func (dto *UpdateHabitGroupDTO) ToModel() interface{} {
     return HabitGroup{
         Name: dto.Name,
         Description: dto.Description,
@@ -80,7 +83,7 @@ type CreateHabitDTO struct {
     HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id" validate:"required"`
 }
 
-func (dto *CreateHabitDTO) ToModel() Habit {
+func (dto *CreateHabitDTO) ToModel() interface{} {
     return Habit{
         ID: bson.NewObjectID(),
         Name: dto.Name,
@@ -97,7 +100,7 @@ type UpdateHabitDTO struct {
     HabitGroupId bson.ObjectID `json:"habit_group_id" bson:"habit_group_id,omitempty"`
 }
 
-func (dto *UpdateHabitDTO) ToModel() Habit {
+func (dto *UpdateHabitDTO) ToModel() interface{} {
     return Habit{
         Name: dto.Name,
         Description: dto.Description,
@@ -113,7 +116,7 @@ type CreateDeedDTO struct {
     Timestamp time.Time `json:"timestamp" bson:"timestamp"`
 }
 
-func (dto *CreateDeedDTO) ToModel() Deed {
+func (dto *CreateDeedDTO) ToModel() interface{} {
     fmt.Println()
     fmt.Println("Timestamp")
     fmt.Println(dto.Timestamp)
@@ -140,7 +143,7 @@ type UpdateDeedDTO struct {
     Timestamp time.Time `json:"timestamp" bson:"timestamp,omitempty"`
 }
 
-func (dto *UpdateDeedDTO) ToModel() Deed {
+func (dto *UpdateDeedDTO) ToModel() interface{} {
     return Deed{
         Name: dto.Name,
         Description: dto.Description,
@@ -159,7 +162,7 @@ type CreateRewardDTO struct {
     EarnedTimestamp time.Time `json:"earned_timestamp" bson:"earned_timestamp"`
 }
 
-func (dto *CreateRewardDTO) ToModel() Reward {
+func (dto *CreateRewardDTO) ToModel() interface{} {
     timestamp := dto.EarnedTimestamp
     if !dto.IsEarned {
         timestamp = time.Time{}
@@ -184,7 +187,7 @@ type UpdateRewardDTO struct {
     EarnedTimestamp time.Time `json:"earned_timestamp" bson:"earned_timestamp,omitempty"`
 }
 
-func (dto *UpdateRewardDTO) ToModel() Reward {
+func (dto *UpdateRewardDTO) ToModel() interface{} {
     return Reward{
         Name: dto.Name,
         Description: dto.Description,
