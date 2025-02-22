@@ -8,12 +8,12 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-func GetById[T any](
+func GetById(
     id string,
     collectionName string,
-    empty *T,
+    empty interface{},
     db *mongo.Database,
-) (*T, error) {
+) (interface{}, error) {
     objectId, _ := bson.ObjectIDFromHex(id)
     resource := empty
     result := db.Collection(collectionName).FindOne(nil, bson.M{"_id": objectId})
@@ -74,7 +74,6 @@ func Update(
     }
     // TODO: THIS IS WRONG!
     resource := dto.ToModel()
-
 
     return resource, err
 }

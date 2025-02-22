@@ -12,7 +12,8 @@ type UserService struct {
 
 func (s *UserService) GetById(id string) (*habitapi.User, error) {
     empty := &habitapi.User{}
-    user, err := GetById(id, s.CollectionName, empty, s.DB)
+    userRaw, err := GetById(id, s.CollectionName, empty, s.DB)
+    user := userRaw.(*habitapi.User)
     return user, err
 }
 
