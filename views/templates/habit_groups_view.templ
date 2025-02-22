@@ -1,6 +1,7 @@
 package templates
 
 import (
+    "fmt"
     "github.com/kperilla/habitapi/habitapi"
 )
 
@@ -29,6 +30,9 @@ templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
                     <div>
                         <h2>{group.Name}</h2>
                         <p>{group.Description}</p>
+                        <button
+                            hx-delete={ fmt.Sprintf("/api/v1/habit_groups/%s", group.ID.Hex()) }
+                        >Delete</button>
                     </div>
                 </li>
             }
