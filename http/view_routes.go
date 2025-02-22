@@ -56,6 +56,16 @@ func (h *Handler) HandlePostHabitGroupView(w http.ResponseWriter, r *http.Reques
     templates.HabitGroupFormList(groups).Render(r.Context(), w)
 }
 
+func (h *Handler) HandleDeleteHabitGroupView(w http.ResponseWriter, r *http.Request) {
+    id := r.PathValue("id")
+    err := h.HabitGroupService.Delete(id)
+    if err != nil {
+        WriteJSON(w, http.StatusInternalServerError, err)
+        return
+    }
+    w.WriteHeader(http.StatusOK)
+}
+
 func (h *Handler) HandleGetDeedsView(w http.ResponseWriter, r *http.Request) {
     deeds, err := h.DeedService.List()
     if err != nil {

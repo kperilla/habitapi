@@ -26,12 +26,15 @@ templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
         </form>
         <ul>
             for _, group := range groups {
-                <li>
-                    <div>
+                <li class="hgCardItem">
+                    <div class="hgCard">
                         <h2>{group.Name}</h2>
                         <p>{group.Description}</p>
+                        <p>{group.UserId.Hex()}</p>
                         <button
-                            hx-delete={ fmt.Sprintf("/api/v1/habit_groups/%s", group.ID.Hex()) }
+                            hx-delete={ fmt.Sprintf("/habit_groups/%s", group.ID.Hex()) }
+                            hx-target="closest .hgCardItem"
+                            hx-swap="outerHTML"
                         >Delete</button>
                     </div>
                 </li>
