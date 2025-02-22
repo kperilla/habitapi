@@ -45,26 +45,26 @@ func List[T any](
     return resources, err
 }
 
-func Create[T any, DTO habitapi.DTO[T]] (
-    dto DTO,
+func Create (
+    dto habitapi.DTO,
     collectionName string,
     db *mongo.Database,
-) (*T, bson.ObjectID, error) {
+) (interface{}, bson.ObjectID, error) {
     resource := dto.ToModel()
     res, err := db.Collection(collectionName).InsertOne(nil, resource)
     if err != nil {
         log.Fatal(err)
     }
     id := res.InsertedID.(bson.ObjectID)
-    return &resource, id, err
+    return resource, id, err
 }
 
-func Update[T any, DTO habitapi.DTO[T]](
+func Update(
     id string,
-    dto DTO,
+    dto habitapi.DTO,
     collectionName string,
     db *mongo.Database,
-) (*T, error) {
+) (interface{}, error) {
     objectId, _ := bson.ObjectIDFromHex(id)
     filter := bson.D{{"_id", objectId}}
     update := bson.D{{"$set", dto}}
@@ -76,7 +76,7 @@ func Update[T any, DTO habitapi.DTO[T]](
     resource := dto.ToModel()
 
 
-    return &resource, err
+    return resource, err
 }
 
 func Delete (

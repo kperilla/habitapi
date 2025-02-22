@@ -23,16 +23,18 @@ func (s * DeedService) List() ([]*habitapi.Deed, error) {
 }
 
 func (s *DeedService) Create(dto habitapi.CreateDeedDTO) (*habitapi.Deed, error) {
-    deed, id, err := Create(&dto, s.CollectionName, s.DB)
+    deedRaw, id, err := Create(&dto, s.CollectionName, s.DB)
+    deed := deedRaw.(habitapi.Deed)
     deed.ID = id
-    return deed, err
+    return &deed, err
 }
 
 func (s *DeedService) Update(
     id string, dto habitapi.UpdateDeedDTO,
 ) (*habitapi.Deed, error) {
-    deed, err := Update(id, &dto, s.CollectionName, s.DB)
-    return deed, err
+    deedRaw, err := Update(id, &dto, s.CollectionName, s.DB)
+    deed := deedRaw.(habitapi.Deed)
+    return &deed, err
 }
 
 func (s *DeedService) Delete(id string) error {

@@ -23,16 +23,18 @@ func (s * UserService) List() ([]*habitapi.User, error) {
 }
 
 func (s *UserService) Create(dto habitapi.CreateUserDTO) (*habitapi.User, error) {
-    user, id, err := Create(&dto, s.CollectionName, s.DB)
+    userRaw, id, err := Create(&dto, s.CollectionName, s.DB)
+    user := userRaw.(habitapi.User)
     user.ID = id
-    return user, err
+    return &user, err
 }
 
 func (s *UserService) Update(
     id string, dto habitapi.UpdateUserDTO,
 ) (*habitapi.User, error) {
-    user, err := Update(id, &dto, s.CollectionName, s.DB)
-    return user, err
+    userRaw, err := Update(id, &dto, s.CollectionName, s.DB)
+    user := userRaw.(habitapi.User)
+    return &user, err
 }
 
 func (s *UserService) Delete(id string) error {
