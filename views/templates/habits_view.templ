@@ -1,0 +1,24 @@
+package templates
+
+import (
+    "github.com/kperilla/habitapi/habitapi"
+)
+
+templ HabitsView(habits []*habitapi.Habit) {
+    @head("Habits")
+    <body>
+        <main>
+            <h1>Habit</h1>
+            <ul>
+                for _, habit := range habits {
+                    <li>
+                        <div>
+                            <h2>{habit.Name}</h2>
+                            <p>{habit.Description}</p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </main>
+    </body>
+}

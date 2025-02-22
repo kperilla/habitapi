@@ -1,6 +1,8 @@
 package templates
 
-import "github.com/kperilla/habitapi/habitapi"
+import (
+    "github.com/kperilla/habitapi/habitapi"
+)
 
 templ HabitGroupsView(groups []*habitapi.HabitGroup) {
     @head("Habit Groups")
@@ -19,4 +21,7 @@ templ HabitGroupsView(groups []*habitapi.HabitGroup) {
             </ul>
         </main>
     </body>
+}
+
+templ IndexView(habits []*habitapi.Habit) {
 }

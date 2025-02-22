@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-    "html/template"
 
 	"encoding/json"
 
@@ -95,18 +94,4 @@ func (h *Handler) HandleDeleteHabit(w http.ResponseWriter, r * http.Request) {
         return
     }
     WriteJSON(w, http.StatusNoContent, id)
-}
-
-func (h *Handler) HandleGetHabitsView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/templates/habits.html"
-    t := template.Must(template.ParseFiles(viewPath))
-    habits, err := h.HabitService.List()
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
-    viewData := HabitsViewData{Habits: habits}
-    err = t.Execute(w, viewData)
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
 }

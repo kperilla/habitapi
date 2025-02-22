@@ -10,12 +10,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/kperilla/habitapi/habitapi"
-	"github.com/kperilla/habitapi/views/templates"
 )
-
-type HGViewData struct {
-    HabitGroups []*habitapi.HabitGroup
-}
 
 func (h *Handler) HandleCreateHabitGroup(w http.ResponseWriter, r *http.Request) {
     var dto habitapi.CreateHabitGroupDTO
@@ -83,14 +78,6 @@ func (h *Handler) HandleGetHabitGroups(w http.ResponseWriter, r *http.Request) {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
     WriteJSON(w, http.StatusOK, groups)
-}
-
-func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
-    groups, err := h.HabitGroupService.List()
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
-    templates.HabitGroupsView(groups).Render(r.Context(), w)
 }
 
 func (h *Handler) HandleDeleteHabitGroup(w http.ResponseWriter, r * http.Request) {

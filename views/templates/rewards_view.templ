@@ -1,0 +1,25 @@
+package templates
+
+import (
+    "fmt"
+    "github.com/kperilla/habitapi/habitapi"
+)
+
+templ RewardsView(rewards []*habitapi.Reward) {
+    <body>
+        <main>
+            <h1>Rewards</h1>
+            <ul>
+                for _, reward := range rewards {
+                    <li>
+                        <div>
+                            <h2>{reward.Name}</h2>
+                            <p>{reward.Description}</p>
+                            <p>{fmt.Sprintf("%d", reward.PointCost)}</p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </main>
+    </body>
+}

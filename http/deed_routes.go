@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-    "html/template"
 
 	"encoding/json"
 
@@ -84,18 +83,4 @@ func (h *Handler) HandleDeleteDeed(w http.ResponseWriter, r * http.Request) {
         return
     }
     WriteJSON(w, http.StatusNoContent, id)
-}
-
-func (h *Handler) HandleGetDeedsView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/templates/deeds.html"
-    t := template.Must(template.ParseFiles(viewPath))
-    deeds, err := h.DeedService.List()
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
-    viewData := DeedsViewData{Deeds: deeds}
-    err = t.Execute(w, viewData)
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
 }
