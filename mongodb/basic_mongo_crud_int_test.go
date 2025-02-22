@@ -35,7 +35,8 @@ func TestGetCreateUserIntegration(t *testing.T) {
 
     // Create
     var dtoA = habitapi.CreateUserDTO{Name: "test"}
-    user1, id1, err := Create(&dtoA, collectionName, db)
+    user1Raw, id1, err := Create(&dtoA, collectionName, db)
+    user1 := user1Raw.(habitapi.User)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
@@ -43,7 +44,8 @@ func TestGetCreateUserIntegration(t *testing.T) {
     createdId := id1
 
     var dtoB = habitapi.CreateUserDTO{Name: "test2"}
-    user2, id2, err := Create(&dtoB, collectionName, db)
+    user2Raw, id2, err := Create(&dtoB, collectionName, db)
+    user2 := user2Raw.(habitapi.User)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Create failed")
@@ -53,7 +55,8 @@ func TestGetCreateUserIntegration(t *testing.T) {
     // Update
     newName := "ChangedTest"
     var updateDto = habitapi.UpdateUserDTO{Name: newName}
-    changedUser, err := Update(createdId2.Hex(), &updateDto, collectionName, db)
+    changedUserRaw, err := Update(createdId2.Hex(), &updateDto, collectionName, db)
+    changedUser := changedUserRaw.(habitapi.User)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Update failed")
