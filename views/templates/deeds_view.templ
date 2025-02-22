@@ -5,19 +5,22 @@ import (
 )
 
 templ DeedsView(deeds []*habitapi.Deed) {
-    <body>
-        <main>
-            <h1>Deeds</h1>
-            <ul>
-                for _, deed := range deeds {
-                    <li>
-                        <div>
-                            <h2>{deed.Name}</h2>
-                            <p>{deed.Description}</p>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </main>
-    </body>
+    <!DOCTYPE html>
+    <html lang="en">
+        <body>
+            <main>
+                <h1>Deeds</h1>
+                <ul>
+                    for _, deed := range deeds {
+                        <li>
+                            <div>
+                                <h2>{deed.Name}</h2>
+                                <p>{deed.Description}</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </main>
+        </body>
+    </html>
 }

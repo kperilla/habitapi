@@ -1,0 +1,81 @@
+package templates
+
+templ IndexView() {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head("My Website")
+        <body>
+            <main>
+                <h1>Welcome to My Website</h1>
+                <p>this is now basically useless and horribly insecure :)</p>
+                <div id="response"></div>
+                <h2>Users</h2>
+                    <form
+                        id="userForm"
+                    >
+                        <label for="userName">Name</label><br>
+                        <input type="text" id="userName" name="name"><br>
+                        <button type="submit">Submit</button>
+                        <!-- <button hx-post="/api/v1/users/">Submit</button> -->
+                    </form>
+                    <h2><a href="/habit_groups">Habit Groups</a></h2>
+                    <!--  TODO/Plan: I'm going to use user_id from the SSO/login info that will be gotten
+                    from the auth middleware in the backend, using the creds passed in the session-->
+                    <form id="habitGroupForm">
+                    <!-- <form -->
+                    <!--     hx-target="#response" -->
+                    <!--     hx-post="/api/v1/habit_groups/" -->
+                    <!--     hx-ext="json-enc" -->
+                    <!--     id="habitGroupForm" -->
+                    <!-- > -->
+                        <label for="habitGroupName">Name</label><br>
+                        <input type="text" id="habitGroupName" name="name"><br>
+                        <label for="habitGroupDesc">Description</label><br>
+                        <input type="text" id="habitGroupDesc" name="description"><br>
+                        <label for="habitGroupUserId">User ID</label><br>
+                        <input type="text" id="habitGroupUserId" name="user_id"><br>
+                        <!-- <input type="submit" value="Submit"> -->
+                        <button type="submit">Submit</button>
+                        <!-- <button hx-post="/api/v1/habit_groups/">Submit</button> -->
+                    </form>
+                <h2><a href="/habits">Habits</a></h2>
+                    <form id="habitForm">
+                        <label for="habitName">Name</label><br>
+                        <input type="text" id="habitName" name="name"><br>
+                        <label for="habitDesc">Description</label><br>
+                        <input type="text" id="habitDesc" name="description"><br>
+                        <label for="habitGroupId">Habit Group ID</label><br>
+                        <input type="text" id="habitGroupId" name="habit_group_id"><br>
+                        <label for="habitUserId">User ID</label><br>
+                        <input type="text" id="habitUserId" name="user_id"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                <h2><a href="/deeds">Deeds</a></h2>
+                    <form id="deedForm">
+                        <label for="deedName">Name</label><br>
+                        <input type="text" id="deedName" name="name"><br>
+                        <label for="deedDesc">Description</label><br>
+                        <input type="text" id="deedDesc" name="description"><br>
+                        <label for="deedUserId">User ID</label><br>
+                        <input type="text" id="deedUserId" name="user_id"><br>
+                        <label for="deedHabitId">Habit ID</label><br>
+                        <input type="text" id="deedHabitId" name="habit_id"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                <h2><a href="/rewards">Rewards</a></h2>
+                    <form id="rewardForm">
+                        <label for="rewardName">Name</label><br>
+                        <input type="text" id="rewardName" name="name"><br>
+                        <label for="rewardDesc">Description</label><br>
+                        <input type="text" id="rewardDesc" name="description"><br>
+                        <label for="rewardPointCost">Point Cost</label><br>
+                        <input type="number" value=0 id="rewardPointCost" name="point_cost"><br>
+                        <label for="rewardUserId">User ID</label><br>
+                        <input type="text" id="rewardUserId" name="user_id"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+            </main>
+            <script type="text/javascript" src="./static/js/main.js"></script>
+        </body>
+    </html>
+}

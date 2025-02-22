@@ -5,23 +5,23 @@ import (
 )
 
 templ HabitGroupsView(groups []*habitapi.HabitGroup) {
-    @head("Habit Groups")
-    <body>
-        <main>
-            <h1>Habit Groups</h1>
-            <ul>
-                for _, group := range groups {
-                    <li>
-                        <div>
-                            <h2>{group.Name}</h2>
-                            <p>{group.Description}</p>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </main>
-    </body>
-}
-
-templ IndexView(habits []*habitapi.Habit) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head("Habit Groups")
+        <body>
+            <main>
+                <h1>Habit Groups</h1>
+                <ul>
+                    for _, group := range groups {
+                        <li>
+                            <div>
+                                <h2>{group.Name}</h2>
+                                <p>{group.Description}</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </main>
+        </body>
+    </html>
 }

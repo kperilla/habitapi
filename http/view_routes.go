@@ -2,19 +2,12 @@ package http
 
 import (
 	"net/http"
-    "html/template"
 
 	"github.com/kperilla/habitapi/views/templates"
 )
 
 func (h *Handler) HandleIndexView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/templates/index.html"
-    t := template.Must(template.ParseFiles(viewPath))
-    viewData := ""
-    err := t.Execute(w, viewData)
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
+    templates.IndexView().Render(r.Context(), w)
 }
 
 func (h *Handler) HandleGetHabitsView(w http.ResponseWriter, r *http.Request) {
