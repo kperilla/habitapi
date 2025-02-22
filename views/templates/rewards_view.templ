@@ -31,6 +31,11 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
                         <p>{ reward.Description }</p>
                         <p>{ fmt.Sprintf("%d", reward.PointCost) }</p>
                         <p>{ reward.UserId.Hex() }</p>
+                        <button
+                            hx-delete={ fmt.Sprintf("/rewards/%s", reward.ID.Hex()) }
+                            hx-target="closest .rewardsFormList"
+                            hx-swap="outerHTML"
+                        >Delete</button>
                     </div>
                 </li>
             }

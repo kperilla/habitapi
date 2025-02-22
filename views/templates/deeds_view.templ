@@ -1,11 +1,12 @@
 package templates
 
 import (
+    "fmt"
     "github.com/kperilla/habitapi/habitapi"
 )
 
 templ DeedsFormList(deeds []*habitapi.Deed) {
-    <div id="deedFormList">
+    <div id="deedsFormList">
         <h1>Deeds</h1>
         <form
             hx-post="/api/v1/deeds/"
@@ -30,6 +31,11 @@ templ DeedsFormList(deeds []*habitapi.Deed) {
                         <p>{ deed.Description }</p>
                         <p>{ deed.UserId.Hex() }</p>
                         <p>{ deed.HabitId.Hex() }</p>
+                        <button
+                            hx-delete={ fmt.Sprintf("/deeds/%s", deed.ID.Hex()) }
+                            hx-target="closest .deedsFormList"
+                            hx-swap="outerHTML"
+                        >Delete</button>
                     </div>
                 </li>
             }
