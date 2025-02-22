@@ -33,7 +33,7 @@ func DeedsView(deeds []*habitapi.Deed) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><body><main><h1>Deeds</h1><form id=\"deedForm\"><label for=\"deedName\">Name</label><br><input type=\"text\" id=\"deedName\" name=\"name\"><br><label for=\"deedDesc\">Description</label><br><input type=\"text\" id=\"deedDesc\" name=\"description\"><br><label for=\"deedUserId\">User ID</label><br><input type=\"text\" id=\"deedUserId\" name=\"user_id\"><br><label for=\"deedHabitId\">Habit ID</label><br><input type=\"text\" id=\"deedHabitId\" name=\"habit_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><body><main><h1>Deeds</h1><form hx-post=\"/api/v1/deeds/\" hx-ext=\"json-enc\" id=\"deedForm\"><label for=\"deedName\">Name</label><br><input type=\"text\" id=\"deedName\" name=\"name\"><br><label for=\"deedDesc\">Description</label><br><input type=\"text\" id=\"deedDesc\" name=\"description\"><br><label for=\"deedUserId\">User ID</label><br><input type=\"text\" id=\"deedUserId\" name=\"user_id\"><br><label for=\"deedHabitId\">Habit ID</label><br><input type=\"text\" id=\"deedHabitId\" name=\"habit_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -45,7 +45,7 @@ func DeedsView(deeds []*habitapi.Deed) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(deed.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/deeds_view.templ`, Line: 28, Col: 46}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/deeds_view.templ`, Line: 32, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -58,7 +58,7 @@ func DeedsView(deeds []*habitapi.Deed) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(deed.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/deeds_view.templ`, Line: 29, Col: 52}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/deeds_view.templ`, Line: 33, Col: 52}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -69,7 +69,7 @@ func DeedsView(deeds []*habitapi.Deed) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</ul></main><script type=\"text/javascript\" src=\"./static/js/main.js\"></script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</ul></main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

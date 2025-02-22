@@ -11,6 +11,8 @@ templ IndexView() {
                 <div id="response"></div>
                 <h2>Users</h2>
                 <form
+                    hx-post="/api/v1/users/"
+                    hx-ext="json-enc"
                     id="userForm"
                 >
                     <label for="userName">Name</label><br>
@@ -25,7 +27,6 @@ templ IndexView() {
                 <h2><a href="/deeds">Deeds</a></h2>
                 <h2><a href="/rewards">Rewards</a></h2>
             </main>
-            <script type="text/javascript" src="./static/js/main.js"></script>
         </body>
     </html>
 }

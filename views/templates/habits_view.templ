@@ -11,7 +11,11 @@ templ HabitsView(habits []*habitapi.Habit) {
         <body>
             <main>
                 <h1>Habit</h1>
-                <form id="habitForm">
+                <form
+                    hx-post="/api/v1/habits/"
+                    hx-ext="json-enc"
+                    id="habitForm"
+                >
                     <label for="habitName">Name</label><br>
                     <input type="text" id="habitName" name="name"><br>
                     <label for="habitDesc">Description</label><br>
@@ -33,7 +37,6 @@ templ HabitsView(habits []*habitapi.Habit) {
                     }
                 </ul>
             </main>
-            <script type="text/javascript" src="./static/js/main.js"></script>
         </body>
     </html>
 }

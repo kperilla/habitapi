@@ -41,7 +41,7 @@ func HabitGroupsView(groups []*habitapi.HabitGroup) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<body><main><h1>Habit Groups</h1><form id=\"habitGroupForm\"><!-- <form --><!--     hx-target=\"#response\" --><!--     hx-post=\"/api/v1/habit_groups/\" --><!--     hx-ext=\"json-enc\" --><!--     id=\"habitGroupForm\" --><!-- > --><label for=\"habitGroupName\">Name</label><br><input type=\"text\" id=\"habitGroupName\" name=\"name\"><br><label for=\"habitGroupDesc\">Description</label><br><input type=\"text\" id=\"habitGroupDesc\" name=\"description\"><br><label for=\"habitGroupUserId\">User ID</label><br><input type=\"text\" id=\"habitGroupUserId\" name=\"user_id\"><br><!-- <input type=\"submit\" value=\"Submit\"> --><button type=\"submit\">Submit</button><!-- <button hx-post=\"/api/v1/habit_groups/\">Submit</button> --></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<body><main><h1>Habit Groups</h1><form hx-post=\"/api/v1/habit_groups/\" hx-ext=\"json-enc\" id=\"habitGroupForm\"><!-- <form --><!--     hx-target=\"#response\" --><!--     hx-post=\"/api/v1/habit_groups/\" --><!--     hx-ext=\"json-enc\" --><!--     id=\"habitGroupForm\" --><!-- > --><label for=\"habitGroupName\">Name</label><br><input type=\"text\" id=\"habitGroupName\" name=\"name\"><br><label for=\"habitGroupDesc\">Description</label><br><input type=\"text\" id=\"habitGroupDesc\" name=\"description\"><br><label for=\"habitGroupUserId\">User ID</label><br><input type=\"text\" id=\"habitGroupUserId\" name=\"user_id\"><br><!-- <input type=\"submit\" value=\"Submit\"> --><button type=\"submit\">Submit</button><!-- <button hx-post=\"/api/v1/habit_groups/\">Submit</button> --></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -53,7 +53,7 @@ func HabitGroupsView(groups []*habitapi.HabitGroup) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(group.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/habit_groups_view.templ`, Line: 35, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/habit_groups_view.templ`, Line: 39, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -66,7 +66,7 @@ func HabitGroupsView(groups []*habitapi.HabitGroup) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(group.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/habit_groups_view.templ`, Line: 36, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/habit_groups_view.templ`, Line: 40, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -77,7 +77,7 @@ func HabitGroupsView(groups []*habitapi.HabitGroup) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</ul></main><script type=\"text/javascript\" src=\"./static/js/main.js\"></script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</ul></main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

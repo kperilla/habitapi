@@ -10,7 +10,11 @@ templ DeedsView(deeds []*habitapi.Deed) {
         <body>
             <main>
                 <h1>Deeds</h1>
-                <form id="deedForm">
+                <form
+                    hx-post="/api/v1/deeds/"
+                    hx-ext="json-enc"
+                    id="deedForm"
+                >
                     <label for="deedName">Name</label><br>
                     <input type="text" id="deedName" name="name"><br>
                     <label for="deedDesc">Description</label><br>
@@ -32,7 +36,6 @@ templ DeedsView(deeds []*habitapi.Deed) {
                     }
                 </ul>
             </main>
-            <script type="text/javascript" src="./static/js/main.js"></script>
         </body>
     </html>
 }

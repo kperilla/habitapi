@@ -11,7 +11,11 @@ templ HabitGroupsView(groups []*habitapi.HabitGroup) {
         <body>
             <main>
                 <h1>Habit Groups</h1>
-                <form id="habitGroupForm">
+                <form
+                    hx-post="/api/v1/habit_groups/"
+                    hx-ext="json-enc"
+                    id="habitGroupForm"
+                >
                 <!-- <form -->
                 <!--     hx-target="#response" -->
                 <!--     hx-post="/api/v1/habit_groups/" -->
@@ -39,7 +43,6 @@ templ HabitGroupsView(groups []*habitapi.HabitGroup) {
                     }
                 </ul>
             </main>
-            <script type="text/javascript" src="./static/js/main.js"></script>
         </body>
     </html>
 }
