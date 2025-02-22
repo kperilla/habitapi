@@ -5,39 +5,45 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
+templ RewardsFormList(rewards []*habitapi.Reward) {
+    <div id="rewardsFormList">
+        <h1>Rewards</h1>
+        <form
+            hx-post="/api/v1/rewards/"
+            hx-ext="json-enc"
+            id="rewardForm"
+        >
+            <label for="rewardName">Name</label><br>
+            <input type="text" id="rewardName" name="name"><br>
+            <label for="rewardDesc">Description</label><br>
+            <input type="text" id="rewardDesc" name="description"><br>
+            <label for="rewardPointCost">Point Cost</label><br>
+            <input type="number" value=0 id="rewardPointCost" name="point_cost"><br>
+            <label for="rewardUserId">User ID</label><br>
+            <input type="text" id="rewardUserId" name="user_id"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <ul>
+            for _, reward := range rewards {
+                <li>
+                    <div>
+                        <h2>{reward.Name}</h2>
+                        <p>{reward.Description}</p>
+                        <p>{fmt.Sprintf("%d", reward.PointCost)}</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
 templ RewardsView(rewards []*habitapi.Reward) {
     <!DOCTYPE html>
     <html lang="en">
         @head("Rewards")
         <body>
             <main>
-                <h1>Rewards</h1>
-                <form
-                    hx-post="/api/v1/rewards/"
-                    hx-ext="json-enc"
-                    id="rewardForm"
-                >
-                    <label for="rewardName">Name</label><br>
-                    <input type="text" id="rewardName" name="name"><br>
-                    <label for="rewardDesc">Description</label><br>
-                    <input type="text" id="rewardDesc" name="description"><br>
-                    <label for="rewardPointCost">Point Cost</label><br>
-                    <input type="number" value=0 id="rewardPointCost" name="point_cost"><br>
-                    <label for="rewardUserId">User ID</label><br>
-                    <input type="text" id="rewardUserId" name="user_id"><br>
-                    <input type="submit" value="Submit">
-                </form>
-                <ul>
-                    for _, reward := range rewards {
-                        <li>
-                            <div>
-                                <h2>{reward.Name}</h2>
-                                <p>{reward.Description}</p>
-                                <p>{fmt.Sprintf("%d", reward.PointCost)}</p>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                @RewardsFormList(rewards)
             </main>
         </body>
     </html>

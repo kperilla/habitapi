@@ -4,38 +4,46 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
+templ DeedsFormList(deeds []*habitapi.Deed) {
+    <div id="deedFormList">
+        <h1>Deeds</h1>
+        <form
+            hx-post="/api/v1/deeds/"
+            hx-ext="json-enc"
+            id="deedForm"
+        >
+            <label for="deedName">Name</label><br>
+            <input type="text" id="deedName" name="name"><br>
+            <label for="deedDesc">Description</label><br>
+            <input type="text" id="deedDesc" name="description"><br>
+            <label for="deedUserId">User ID</label><br>
+            <input type="text" id="deedUserId" name="user_id"><br>
+            <label for="deedHabitId">Habit ID</label><br>
+            <input type="text" id="deedHabitId" name="habit_id"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <ul>
+            for _, deed := range deeds {
+                <li>
+                    <div>
+                        <h2>{ deed.Name }</h2>
+                        <p>{ deed.Description }</p>
+                        <p>{ deed.UserId.Hex() }</p>
+                        <p>{ deed.HabitId.Hex() }</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
 templ DeedsView(deeds []*habitapi.Deed) {
     <!DOCTYPE html>
     <html lang="en">
         @head("Deeds")
         <body>
             <main>
-                <h1>Deeds</h1>
-                <form
-                    hx-post="/api/v1/deeds/"
-                    hx-ext="json-enc"
-                    id="deedForm"
-                >
-                    <label for="deedName">Name</label><br>
-                    <input type="text" id="deedName" name="name"><br>
-                    <label for="deedDesc">Description</label><br>
-                    <input type="text" id="deedDesc" name="description"><br>
-                    <label for="deedUserId">User ID</label><br>
-                    <input type="text" id="deedUserId" name="user_id"><br>
-                    <label for="deedHabitId">Habit ID</label><br>
-                    <input type="text" id="deedHabitId" name="habit_id"><br>
-                    <input type="submit" value="Submit">
-                </form>
-                <ul>
-                    for _, deed := range deeds {
-                        <li>
-                            <div>
-                                <h2>{deed.Name}</h2>
-                                <p>{deed.Description}</p>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                @DeedsFormList(deeds)
             </main>
         </body>
     </html>
