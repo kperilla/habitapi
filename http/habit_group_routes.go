@@ -85,7 +85,7 @@ func (h *Handler) HandleGetHabitGroups(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/habitGroups.html"
+    viewPath := "views/templates/habitGroups.html"
     t := template.Must(template.ParseFiles(viewPath))
     groups, err := h.HabitGroupService.List()
     if err != nil {

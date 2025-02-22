@@ -87,7 +87,7 @@ func (h *Handler) HandleDeleteDeed(w http.ResponseWriter, r * http.Request) {
 }
 
 func (h *Handler) HandleGetDeedsView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/deeds.html"
+    viewPath := "views/templates/deeds.html"
     t := template.Must(template.ParseFiles(viewPath))
     deeds, err := h.DeedService.List()
     if err != nil {

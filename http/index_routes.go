@@ -6,7 +6,7 @@ import (
 )
 
 func (h *Handler) HandleIndexView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/index.html"
+    viewPath := "views/templates/index.html"
     t := template.Must(template.ParseFiles(viewPath))
     viewData := ""
     err := t.Execute(w, viewData)
