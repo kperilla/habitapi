@@ -12,7 +12,8 @@ type DeedService struct {
 
 func (s *DeedService) GetById(id string) (*habitapi.Deed, error) {
     empty := &habitapi.Deed{}
-    deed, err := GetById(id, s.CollectionName, empty, s.DB)
+    deedRaw, err := GetById(id, s.CollectionName, empty, s.DB)
+    deed := deedRaw.(*habitapi.Deed)
     return deed, err
 }
 

@@ -67,7 +67,8 @@ func TestGetCreateUserIntegration(t *testing.T) {
 
     // Get
     emptyUser := &habitapi.User{}
-    retrievedUser, err := GetById(createdId.Hex(), collectionName, emptyUser, db)
+    retrievedUserRaw, err := GetById(createdId.Hex(), collectionName, emptyUser, db)
+    retrievedUser := retrievedUserRaw.(*habitapi.User)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")
@@ -76,7 +77,8 @@ func TestGetCreateUserIntegration(t *testing.T) {
         t.Errorf("Expected user name %s, got %s", user1.Name, retrievedUser.Name)
     }
     emptyUser = &habitapi.User{}
-    retrievedUser2, err := GetById(createdId2.Hex(), collectionName, emptyUser, db)
+    retrievedUser2Raw, err := GetById(createdId2.Hex(), collectionName, emptyUser, db)
+    retrievedUser2 := retrievedUser2Raw.(*habitapi.User)
     if err != nil {
         log.Fatal(err)
         t.Errorf("Get failed")

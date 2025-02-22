@@ -12,7 +12,8 @@ type RewardService struct {
 
 func (s *RewardService) GetById(id string) (*habitapi.Reward, error) {
     empty := &habitapi.Reward{}
-    reward, err := GetById(id, s.CollectionName, empty, s.DB)
+    rewardRaw, err := GetById(id, s.CollectionName, empty, s.DB)
+    reward := rewardRaw.(*habitapi.Reward)
     return reward, err
 }
 

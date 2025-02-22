@@ -12,7 +12,8 @@ type HabitGroupService struct {
 
 func (s *HabitGroupService) GetById(id string) (*habitapi.HabitGroup, error) {
     empty := &habitapi.HabitGroup{}
-    group, err := GetById(id, s.CollectionName, empty, s.DB)
+    groupRaw, err := GetById(id, s.CollectionName, empty, s.DB)
+    group := groupRaw.(*habitapi.HabitGroup)
     return group, err
 }
 
