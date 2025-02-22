@@ -5,7 +5,7 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
-templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
+templ HabitGroupFormList(groupCombos []habitapi.HgUserCombo) {
     <div id="hgFormList">
         <h1>Habit Groups</h1>
         <form
@@ -25,14 +25,15 @@ templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
             <button type="submit">Submit</button>
         </form>
         <ul>
-            for _, group := range groups {
+            for _, groupCombo := range groupCombos {
                 <li class="hgCardItem">
                     <div class="hgCard">
-                        <h2>{group.Name}</h2>
-                        <p>{group.Description}</p>
-                        <p>{group.UserId.Hex()}</p>
+                        <h2>{groupCombo.HabitGroup.Name}</h2>
+                        <p>{groupCombo.HabitGroup.Description}</p>
+                        <p>{groupCombo.HabitGroup.UserId.Hex()}</p>
+                        <p>{groupCombo.UserName}</p>
                         <button
-                            hx-delete={ fmt.Sprintf("/habit_groups/%s", group.ID.Hex()) }
+                            hx-delete={ fmt.Sprintf("/habit_groups/%s", groupCombo.HabitGroup.ID.Hex()) }
                             hx-target="closest .hgCardItem"
                             hx-swap="outerHTML"
                         >Delete</button>
@@ -42,13 +43,13 @@ templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
         </ul>
     </div>
 }
-templ HabitGroupsView(groups []*habitapi.HabitGroup) {
+templ HabitGroupsView(groupCombos []habitapi.HgUserCombo) {
     <!DOCTYPE html>
     <html lang="en">
         @head("Habit Groups")
         <body>
             <main>
-            @HabitGroupFormList(groups)
+            @HabitGroupFormList(groupCombos)
             </main>
         </body>
     </html>

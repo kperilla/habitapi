@@ -22,12 +22,32 @@ func (h *Handler) HandleGetHabitsView(w http.ResponseWriter, r *http.Request) {
     templates.HabitsView(habits).Render(r.Context(), w)
 }
 
-func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) habitGroupsWithUserNames() ([]habitapi.HgUserCombo, error) {
     groups, err := h.HabitGroupService.List()
+    comboList := make([]habitapi.HgUserCombo, len(groups))
+    if err != nil {
+        return comboList, err
+    }
+    for i, group := range groups {
+        user, err := h.UserService.GetById(group.UserId.Hex())
+        var userName string
+        if err != nil {
+            userName = "(error)"
+        } else {
+            userName = user.Name
+        }
+        comboList[i] = habitapi.HgUserCombo{HabitGroup: group, UserName: userName}
+    }
+    return comboList, err
+}
+
+func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
+    // groups, err := h.HabitGroupService.List()
+    groupComboList, err := h.habitGroupsWithUserNames()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
-    templates.HabitGroupsView(groups).Render(r.Context(), w)
+    templates.HabitGroupsView(groupComboList).Render(r.Context(), w)
 }
 
 func (h *Handler) HandlePostHabitGroupView(w http.ResponseWriter, r *http.Request) {
@@ -49,11 +69,12 @@ func (h *Handler) HandlePostHabitGroupView(w http.ResponseWriter, r *http.Reques
         WriteJSON(w, http.StatusBadRequest, err)
         return
     }
-    groups, err := h.HabitGroupService.List()
+    // groups, err := h.HabitGroupService.List()
+    groupComboList, err := h.habitGroupsWithUserNames()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
-    templates.HabitGroupFormList(groups).Render(r.Context(), w)
+    templates.HabitGroupFormList(groupComboList).Render(r.Context(), w)
 }
 
 func (h *Handler) HandleDeleteHabitGroupView(w http.ResponseWriter, r *http.Request) {

@@ -59,6 +59,11 @@ type HabitGroup struct {
     UserId bson.ObjectID `json:"user_id" bson:"user_id,omitempty"`
 }
 
+type HgUserCombo struct {
+    HabitGroup *HabitGroup
+    UserName string
+}
+
 // NOTE: I wasn't able to make this work from within the generic functions
 // func (hg *HabitGroup) SetID(id string) {
 //     hg.ID = id
