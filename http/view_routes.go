@@ -1,11 +1,8 @@
 package http
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/kperilla/habitapi/habitapi"
 	"github.com/kperilla/habitapi/views/templates"
 )
@@ -42,7 +39,6 @@ func (h *Handler) habitGroupsWithUserNames() ([]habitapi.HgUserCombo, error) {
 }
 
 func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
-    // groups, err := h.HabitGroupService.List()
     groupComboList, err := h.habitGroupsWithUserNames()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
@@ -51,25 +47,11 @@ func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *Handler) HandlePostHabitGroupView(w http.ResponseWriter, r *http.Request) {
-    var dto habitapi.CreateHabitGroupDTO
-    if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
-        WriteJSON(w, http.StatusBadRequest, err)
-        return
-    }
-    // TODO: Validate DTO
-    validate := validator.New(validator.WithRequiredStructEnabled())
-    err := validate.Struct(dto)
+    _, status, err := h.createFromDTO(r)
     if err != nil {
-        fmt.Println(err)
-        WriteJSON(w, http.StatusBadRequest, err)
+        WriteJSON(w, status, err)
         return
     }
-    _, err = h.HabitGroupService.Create(dto)
-    if err != nil {
-        WriteJSON(w, http.StatusBadRequest, err)
-        return
-    }
-    // groups, err := h.HabitGroupService.List()
     groupComboList, err := h.habitGroupsWithUserNames()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)

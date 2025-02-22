@@ -12,26 +12,33 @@ import (
 	"github.com/kperilla/habitapi/habitapi"
 )
 
-func (h *Handler) HandleCreateHabitGroup(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) createFromDTO(r *http.Request) (*habitapi.HabitGroup, int, error) {
     var dto habitapi.CreateHabitGroupDTO
     if err := json.NewDecoder(r.Body).Decode(&dto); err != nil {
-        WriteJSON(w, http.StatusBadRequest, err)
-        return
+        return &habitapi.HabitGroup{}, http.StatusBadRequest, err
     }
     // TODO: Validate DTO
     validate := validator.New(validator.WithRequiredStructEnabled())
     err := validate.Struct(dto)
     if err != nil {
         fmt.Println(err)
-        WriteJSON(w, http.StatusBadRequest, err)
-        return
+        return &habitapi.HabitGroup{}, http.StatusBadRequest, err
     }
-    user, err := h.HabitGroupService.Create(dto)
+    resource, err := h.HabitGroupService.Create(dto)
     if err != nil {
-        WriteJSON(w, http.StatusBadRequest, err)
+        return &habitapi.HabitGroup{}, http.StatusBadRequest, err
+    }
+    return resource, 200, err
+}
+
+
+func (h *Handler) HandleCreateHabitGroup(w http.ResponseWriter, r *http.Request) {
+    group, status, err := h.createFromDTO(r)
+    if err != nil {
+        WriteJSON(w, status, err)
         return
     }
-    WriteJSON(w, http.StatusCreated, user.ID)
+    WriteJSON(w, http.StatusCreated, group.ID)
 }
 
 func (h *Handler) HandleUpdateHabitGroup(w http.ResponseWriter, r *http.Request) {
