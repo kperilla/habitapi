@@ -59,6 +59,7 @@ func (s *APIServer) Run(handler *Handler) error {
     router.HandleFunc("PUT /api/v1/habit_groups/{id}", handler.HandleUpdateHabitGroup)
     router.HandleFunc("DELETE /api/v1/habit_groups/{id}", handler.HandleDeleteHabitGroup)
     router.HandleFunc("GET /habit_groups/", handler.HandleGetHabitGroupsView)
+    router.HandleFunc("POST /habit_groups/", handler.HandlePostHabitGroupView)
 
     router.HandleFunc("GET /api/v1/habits/{id}", handler.HandleGetHabit)
     router.HandleFunc("POST /api/v1/habits/", handler.HandleCreateHabit)

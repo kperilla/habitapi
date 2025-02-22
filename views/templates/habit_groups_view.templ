@@ -4,44 +4,44 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
+templ HabitGroupFormList(groups []*habitapi.HabitGroup) {
+    <div id="hgFormList">
+        <h1>Habit Groups</h1>
+        <form
+            hx-post="/habit_groups/"
+            hx-target="#hgFormList"
+            hx-ext="json-enc"
+            id="habitGroupForm"
+        >
+        <!--     hx-target="#hgFormList" -->
+            <label for="habitGroupName">Name</label><br>
+            <input type="text" id="habitGroupName" name="name"><br>
+            <label for="habitGroupDesc">Description</label><br>
+            <input type="text" id="habitGroupDesc" name="description"><br>
+            <label for="habitGroupUserId">User ID</label><br>
+            <input type="text" id="habitGroupUserId" name="user_id"><br>
+            <!-- <input type="submit" value="Submit"> -->
+            <button type="submit">Submit</button>
+        </form>
+        <ul>
+            for _, group := range groups {
+                <li>
+                    <div>
+                        <h2>{group.Name}</h2>
+                        <p>{group.Description}</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
 templ HabitGroupsView(groups []*habitapi.HabitGroup) {
     <!DOCTYPE html>
     <html lang="en">
         @head("Habit Groups")
         <body>
             <main>
-                <h1>Habit Groups</h1>
-                <form
-                    hx-post="/api/v1/habit_groups/"
-                    hx-ext="json-enc"
-                    id="habitGroupForm"
-                >
-                <!-- <form -->
-                <!--     hx-target="#response" -->
-                <!--     hx-post="/api/v1/habit_groups/" -->
-                <!--     hx-ext="json-enc" -->
-                <!--     id="habitGroupForm" -->
-                <!-- > -->
-                    <label for="habitGroupName">Name</label><br>
-                    <input type="text" id="habitGroupName" name="name"><br>
-                    <label for="habitGroupDesc">Description</label><br>
-                    <input type="text" id="habitGroupDesc" name="description"><br>
-                    <label for="habitGroupUserId">User ID</label><br>
-                    <input type="text" id="habitGroupUserId" name="user_id"><br>
-                    <!-- <input type="submit" value="Submit"> -->
-                    <button type="submit">Submit</button>
-                    <!-- <button hx-post="/api/v1/habit_groups/">Submit</button> -->
-                </form>
-                <ul>
-                    for _, group := range groups {
-                        <li>
-                            <div>
-                                <h2>{group.Name}</h2>
-                                <p>{group.Description}</p>
-                            </div>
-                        </li>
-                    }
-                </ul>
+            @HabitGroupFormList(groups)
             </main>
         </body>
     </html>
