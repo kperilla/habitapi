@@ -27,9 +27,10 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
             for _, reward := range rewards {
                 <li>
                     <div>
-                        <h2>{reward.Name}</h2>
-                        <p>{reward.Description}</p>
-                        <p>{fmt.Sprintf("%d", reward.PointCost)}</p>
+                        <h2>{ reward.Name }</h2>
+                        <p>{ reward.Description }</p>
+                        <p>{ fmt.Sprintf("%d", reward.PointCost) }</p>
+                        <p>{ reward.UserId.Hex() }</p>
                     </div>
                 </li>
             }
