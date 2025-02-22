@@ -3,13 +3,14 @@ package http
 import (
 	"errors"
 	"fmt"
+
 	"net/http"
-    "html/template"
 
 	"encoding/json"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/kperilla/habitapi/habitapi"
+	"github.com/kperilla/habitapi/views/templates"
 )
 
 type HGViewData struct {
@@ -85,17 +86,11 @@ func (h *Handler) HandleGetHabitGroups(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleGetHabitGroupsView(w http.ResponseWriter, r *http.Request) {
-    viewPath := "views/templates/habitGroups.html"
-    t := template.Must(template.ParseFiles(viewPath))
     groups, err := h.HabitGroupService.List()
     if err != nil {
         WriteJSON(w, http.StatusInternalServerError, err)
     }
-    viewData := HGViewData{HabitGroups: groups}
-    err = t.Execute(w, viewData)
-    if err != nil {
-        WriteJSON(w, http.StatusInternalServerError, err)
-    }
+    templates.HabitGroupsView(groups).Render(r.Context(), w)
 }
 
 func (h *Handler) HandleDeleteHabitGroup(w http.ResponseWriter, r * http.Request) {

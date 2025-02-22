@@ -4,6 +4,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 build:
+	@$(HOME)/go/bin/templ generate
 	@go build -o bin/habit-tracker-api .
 
 run: build
