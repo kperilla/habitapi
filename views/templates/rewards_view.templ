@@ -11,6 +11,17 @@ templ RewardsView(rewards []*habitapi.Reward) {
         <body>
             <main>
                 <h1>Rewards</h1>
+                <form id="rewardForm">
+                    <label for="rewardName">Name</label><br>
+                    <input type="text" id="rewardName" name="name"><br>
+                    <label for="rewardDesc">Description</label><br>
+                    <input type="text" id="rewardDesc" name="description"><br>
+                    <label for="rewardPointCost">Point Cost</label><br>
+                    <input type="number" value=0 id="rewardPointCost" name="point_cost"><br>
+                    <label for="rewardUserId">User ID</label><br>
+                    <input type="text" id="rewardUserId" name="user_id"><br>
+                    <input type="submit" value="Submit">
+                </form>
                 <ul>
                     for _, reward := range rewards {
                         <li>
@@ -23,6 +34,7 @@ templ RewardsView(rewards []*habitapi.Reward) {
                     }
                 </ul>
             </main>
+            <script type="text/javascript" src="./static/js/main.js"></script>
         </body>
     </html>
 }
