@@ -34,7 +34,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"rewardsFormList\"><h1>Rewards</h1><form hx-post=\"/api/v1/rewards/\" hx-ext=\"json-enc\" id=\"rewardForm\"><label for=\"rewardName\">Name</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardName\" name=\"name\"><br><label for=\"rewardDesc\">Description</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardDesc\" name=\"description\"><br><label for=\"rewardPointCost\">Point Cost</label><br><input class=\"default-input-field\" type=\"number\" value=\"0\" id=\"rewardPointCost\" name=\"point_cost\"><br><label for=\"rewardUserId\">User ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardUserId\" name=\"user_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"rewardsFormList\"><h1>Rewards</h1><form hx-post=\"/api/v1/rewards/\" hx-ext=\"json-enc\" id=\"rewardForm\" class=\"block border max-w-sm\"><label for=\"rewardName\">Name</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardName\" name=\"name\"><br><label for=\"rewardDesc\">Description</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardDesc\" name=\"description\"><br><label for=\"rewardPointCost\">Point Cost</label><br><input class=\"default-input-field\" type=\"number\" value=\"0\" id=\"rewardPointCost\" name=\"point_cost\"><br><label for=\"rewardUserId\">User ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"rewardUserId\" name=\"user_id\"><br><input class=\"text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2\" type=\"submit\" value=\"Submit\"></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -46,7 +46,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(reward.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 30, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 33, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -59,7 +59,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(reward.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 31, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 34, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -72,7 +72,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", reward.PointCost))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 32, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 35, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -85,7 +85,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(reward.UserId.Hex())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 33, Col: 48}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 36, Col: 48}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -98,7 +98,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/rewards/%s", reward.ID.Hex()))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 35, Col: 83}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/templates/rewards_view.templ`, Line: 38, Col: 83}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
