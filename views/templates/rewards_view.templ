@@ -22,9 +22,10 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
             <input class="default-input-field" type="number" value=0 id="rewardPointCost" name="point_cost"><br>
             <label for="rewardUserId">User ID</label><br>
             <input class="default-input-field" type="text" id="rewardUserId" name="user_id"><br>
-            <input
+            <button
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                type="submit" value="Submit">
+                type="submit" value="Submit"
+            >Submit</button>
         </form>
         <ul>
             for _, reward := range rewards {
