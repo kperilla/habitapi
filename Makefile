@@ -4,6 +4,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 build:
+	@npx @tailwindcss/cli -i ./views/static/css/input.css -o ./views/static/css/output.css
 	@$(HOME)/go/bin/templ generate
 	@go build -o bin/habit-tracker-api .
 
