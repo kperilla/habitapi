@@ -34,7 +34,7 @@ func HabitGroupFormList(groupCombos []habitapi.HgUserCombo) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"hgFormList\"><h1>Habit Groups</h1><form hx-post=\"/habit_groups/\" hx-target=\"#hgFormList\" hx-ext=\"json-enc\" id=\"habitGroupForm\"><!--     hx-target=\"#hgFormList\" --><label for=\"habitGroupName\">Name</label><br><input type=\"text\" id=\"habitGroupName\" name=\"name\"><br><label for=\"habitGroupDesc\">Description</label><br><input type=\"text\" id=\"habitGroupDesc\" name=\"description\"><br><label for=\"habitGroupUserId\">User ID</label><br><input type=\"text\" id=\"habitGroupUserId\" name=\"user_id\"><br><!-- <input type=\"submit\" value=\"Submit\"> --><button type=\"submit\">Submit</button></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"hgFormList\"><h1>Habit Groups</h1><form hx-post=\"/habit_groups/\" hx-target=\"#hgFormList\" hx-ext=\"json-enc\" id=\"habitGroupForm\"><!--     hx-target=\"#hgFormList\" --><label for=\"habitGroupName\">Name</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitGroupName\" name=\"name\"><br><label for=\"habitGroupDesc\">Description</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitGroupDesc\" name=\"description\"><br><label for=\"habitGroupUserId\">User ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitGroupUserId\" name=\"user_id\"><br><!-- <input type=\"submit\" value=\"Submit\"> --><button type=\"submit\">Submit</button></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

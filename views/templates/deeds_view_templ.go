@@ -34,7 +34,7 @@ func DeedsFormList(deeds []*habitapi.Deed) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"deedsFormList\"><h1>Deeds</h1><form hx-post=\"/api/v1/deeds/\" hx-ext=\"json-enc\" id=\"deedForm\"><label for=\"deedName\">Name</label><br><input type=\"text\" id=\"deedName\" name=\"name\"><br><label for=\"deedDesc\">Description</label><br><input type=\"text\" id=\"deedDesc\" name=\"description\"><br><label for=\"deedUserId\">User ID</label><br><input type=\"text\" id=\"deedUserId\" name=\"user_id\"><br><label for=\"deedHabitId\">Habit ID</label><br><input type=\"text\" id=\"deedHabitId\" name=\"habit_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"deedsFormList\"><h1>Deeds</h1><form hx-post=\"/api/v1/deeds/\" hx-ext=\"json-enc\" id=\"deedForm\"><label for=\"deedName\">Name</label><br><input class=\"default-input-field\" type=\"text\" id=\"deedName\" name=\"name\"><br><label for=\"deedDesc\">Description</label><br><input class=\"default-input-field\" type=\"text\" id=\"deedDesc\" name=\"description\"><br><label for=\"deedUserId\">User ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"deedUserId\" name=\"user_id\"><br><label for=\"deedHabitId\">Habit ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"deedHabitId\" name=\"habit_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -16,16 +16,19 @@ templ IndexView() {
                     id="userForm"
                 >
                     <label for="userName">Name</label><br>
-                    <input type="text" id="userName" name="name"><br>
+                    <input
+                        type="text" id="userName" name="name"
+                        class="default-input-field"
+                    ><br>
                     <button type="submit">Submit</button>
                     <!-- <button hx-post="/api/v1/users/">Submit</button> -->
                 </form>
-                <h2><a href="/habit_groups">Habit Groups</a></h2>
+                <h2><a href="/habit_groups" class="hover:underline">Habit Groups</a></h2>
                 <!--  TODO/Plan: I'm going to use user_id from the SSO/login info that will be gotten
                 from the auth middleware in the backend, using the creds passed in the session-->
-                <h2><a href="/habits">Habits</a></h2>
-                <h2><a href="/deeds">Deeds</a></h2>
-                <h2><a href="/rewards">Rewards</a></h2>
+                <h2><a href="/habits" class="hover:underline">Habits</a></h2>
+                <h2><a href="/deeds" class="hover:underline">Deeds</a></h2>
+                <h2><a href="/rewards" class="hover:underline">Rewards</a></h2>
             </main>
         </body>
     </html>

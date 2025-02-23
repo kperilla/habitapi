@@ -34,7 +34,7 @@ func HabitFormList(habits []*habitapi.Habit) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"habitFormList\"><h1>Habit</h1><form hx-post=\"/api/v1/habits/\" hx-ext=\"json-enc\" id=\"habitForm\"><label for=\"habitName\">Name</label><br><input type=\"text\" id=\"habitName\" name=\"name\"><br><label for=\"habitDesc\">Description</label><br><input type=\"text\" id=\"habitDesc\" name=\"description\"><br><label for=\"habitGroupId\">Habit Group ID</label><br><input type=\"text\" id=\"habitGroupId\" name=\"habit_group_id\"><br><label for=\"habitUserId\">User ID</label><br><input type=\"text\" id=\"habitUserId\" name=\"user_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"habitFormList\"><h1>Habit</h1><form hx-post=\"/api/v1/habits/\" hx-ext=\"json-enc\" id=\"habitForm\"><label for=\"habitName\">Name</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitName\" name=\"name\"><br><label for=\"habitDesc\">Description</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitDesc\" name=\"description\"><br><label for=\"habitGroupId\">Habit Group ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitGroupId\" name=\"habit_group_id\"><br><label for=\"habitUserId\">User ID</label><br><input class=\"default-input-field\" type=\"text\" id=\"habitUserId\" name=\"user_id\"><br><input type=\"submit\" value=\"Submit\"></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
