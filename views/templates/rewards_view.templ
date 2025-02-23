@@ -7,7 +7,7 @@ import (
 
 templ RewardsFormList(rewards []*habitapi.Reward) {
     <div id="rewardsFormList">
-        <h1>Rewards</h1>
+        <h1 class="text-5xl font-bold m-4 mb-5">Rewards</h1>
         <form
             hx-post="/api/v1/rewards/"
             hx-ext="json-enc"
@@ -37,15 +37,16 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
                 type="submit" value="Submit"
             >Submit</button>
         </form>
-        <ul>
+        <ul class="grid grid-cols-4 p-3">
             for _, reward := range rewards {
-                <li>
+                <li class="border rounded-sm m-1 bg-sky-200">
                     <div>
-                        <h2>{ reward.Name }</h2>
-                        <p>{ reward.Description }</p>
-                        <p>{ fmt.Sprintf("%d", reward.PointCost) }</p>
-                        <p>{ reward.UserId.Hex() }</p>
+                        <h2 class="p-1 m-1 font-bold">{ reward.Name }</h2>
+                        <p class="p-1 m-1">{ reward.Description }</p>
+                        <p class="p-1 m-1">{ fmt.Sprintf("%d", reward.PointCost) }</p>
+                        <p class="p-1 m-1">{ reward.UserId.Hex() }</p>
                         <button
+                            class="p-1 m-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg"
                             hx-delete={ fmt.Sprintf("/rewards/%s", reward.ID.Hex()) }
                             hx-target="closest .rewardsFormList"
                             hx-swap="outerHTML"
