@@ -99,7 +99,7 @@ func rewardContent(reward *habitapi.Reward) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" hx-target=\"closest .rewardsFormList\" hx-swap=\"outerHTML\">Delete</button>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" hx-target=\"closest .formList\" hx-swap=\"outerHTML\">Delete</button>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -157,7 +157,7 @@ func RewardsFormList(rewards []*habitapi.Reward) templ.Component {
 			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<div id=\"rewardsFormList\" class=\"p-4 grid grid-cols-1 gap-1\"><h1 class=\"text-5xl font-bold mb-5\">Rewards</h1>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<div class=\"formList p-4 grid grid-cols-1 gap-1\"><h1 class=\"text-5xl font-bold mb-5\">Rewards</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

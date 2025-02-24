@@ -13,7 +13,7 @@ templ rewardContent(reward *habitapi.Reward) {
     <button
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg"
         hx-delete={ fmt.Sprintf("/rewards/%s", reward.ID.Hex()) }
-        hx-target="closest .rewardsFormList"
+        hx-target="closest .formList"
         hx-swap="outerHTML"
     >Delete</button>
 }
@@ -38,7 +38,7 @@ templ postRewardContent() {
 }
 
 templ RewardsFormList(rewards []*habitapi.Reward) {
-    <div id="rewardsFormList" class="p-4 grid grid-cols-1 gap-1">
+    <div class="formList p-4 grid grid-cols-1 gap-1">
         <h1 class="text-5xl font-bold mb-5">Rewards</h1>
         @postResourceForm("/api/v1/rewards/"){
             @postRewardContent()
