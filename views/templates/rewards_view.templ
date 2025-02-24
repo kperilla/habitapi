@@ -5,12 +5,6 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
-templ resourceCard(cardContent templ.Component) {
-    <div class="border rounded-sm bg-sky-200">
-        @cardContent
-    </div>
-}
-
 templ rewardContent(reward *habitapi.Reward) {
     <h2 class="p-1 m-1 font-bold">{ reward.Name }</h2>
     <p class="p-1 m-1">{ reward.Description }</p>
@@ -24,42 +18,35 @@ templ rewardContent(reward *habitapi.Reward) {
     >Delete</button>
 }
 
+templ postRewardContent() {
+    <div>
+        <label for="rewardName">Name</label><br>
+        <input class="default-input-field bg-sky-100" type="text" id="rewardName" name="name"><br>
+    </div>
+    <div>
+        <label for="rewardDesc">Description</label><br>
+        <input class="default-input-field bg-sky-100" type="text" id="rewardDesc" name="description"><br>
+    </div>
+    <div>
+        <label for="rewardPointCost">Point Cost</label><br>
+        <input class="default-input-field bg-sky-100" type="number" value=0 id="rewardPointCost" name="point_cost"><br>
+    </div>
+    <div>
+        <label for="rewardUserId">User ID</label><br>
+        <input class="default-input-field bg-sky-100" type="text" id="rewardUserId" name="user_id"><br>
+    </div>
+}
+
 templ RewardsFormList(rewards []*habitapi.Reward) {
     <div id="rewardsFormList" class="p-4 grid grid-cols-1 gap-1">
         <h1 class="text-5xl font-bold mb-5">Rewards</h1>
-        <form
-            hx-post="/api/v1/rewards/"
-            hx-ext="json-enc"
-            id="rewardForm"
-            class="border rounded-sm bg-sky-50 max-w-lg p-8"
-        >
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label for="rewardName">Name</label><br>
-                    <input class="default-input-field bg-sky-100" type="text" id="rewardName" name="name"><br>
-                </div>
-                <div>
-                    <label for="rewardDesc">Description</label><br>
-                    <input class="default-input-field bg-sky-100" type="text" id="rewardDesc" name="description"><br>
-                </div>
-                <div>
-                    <label for="rewardPointCost">Point Cost</label><br>
-                    <input class="default-input-field bg-sky-100" type="number" value=0 id="rewardPointCost" name="point_cost"><br>
-                </div>
-                <div>
-                    <label for="rewardUserId">User ID</label><br>
-                    <input class="default-input-field bg-sky-100" type="text" id="rewardUserId" name="user_id"><br>
-                </div>
-            </div>
-            <button
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                type="submit" value="Submit"
-            >Submit</button>
-        </form>
+        @postResourceForm("/api/v1/rewards/", postRewardContent())
         <ul class="grid grid-cols-4 gap-2">
             for _, reward := range rewards {
                 <li>
-                    @resourceCard(rewardContent(reward))
+                    @resourceCard() {
+                        @rewardContent(reward)
+                    }
                 </li>
             }
         </ul>
