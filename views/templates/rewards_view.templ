@@ -40,7 +40,9 @@ templ postRewardContent() {
 templ RewardsFormList(rewards []*habitapi.Reward) {
     <div id="rewardsFormList" class="p-4 grid grid-cols-1 gap-1">
         <h1 class="text-5xl font-bold mb-5">Rewards</h1>
-        @postResourceForm("/api/v1/rewards/", postRewardContent())
+        @postResourceForm("/api/v1/rewards/"){
+            @postRewardContent()
+        }
         <ul class="grid grid-cols-4 gap-2">
             for _, reward := range rewards {
                 <li>
