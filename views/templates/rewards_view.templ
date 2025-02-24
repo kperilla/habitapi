@@ -6,13 +6,13 @@ import (
 )
 
 templ RewardsFormList(rewards []*habitapi.Reward) {
-    <div id="rewardsFormList">
-        <h1 class="text-5xl font-bold m-4 mb-5">Rewards</h1>
+    <div id="rewardsFormList" class="p-4 grid grid-cols-1 gap-1">
+        <h1 class="text-5xl font-bold mb-5">Rewards</h1>
         <form
             hx-post="/api/v1/rewards/"
             hx-ext="json-enc"
             id="rewardForm"
-            class="border rounded-sm bg-sky-50 max-w-lg p-8 m-4"
+            class="border rounded-sm bg-sky-50 max-w-lg p-8"
         >
             <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -37,9 +37,9 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
                 type="submit" value="Submit"
             >Submit</button>
         </form>
-        <ul class="grid grid-cols-4 p-3">
+        <ul class="grid grid-cols-4 gap-2">
             for _, reward := range rewards {
-                <li class="border rounded-sm m-1 bg-sky-200">
+                <li class="border rounded-sm bg-sky-200">
                     <div>
                         <h2 class="p-1 m-1 font-bold">{ reward.Name }</h2>
                         <p class="p-1 m-1">{ reward.Description }</p>
