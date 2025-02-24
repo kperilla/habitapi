@@ -5,6 +5,25 @@ import (
     "github.com/kperilla/habitapi/habitapi"
 )
 
+templ resourceCard(cardContent templ.Component) {
+    <div class="border rounded-sm bg-sky-200">
+        @cardContent
+    </div>
+}
+
+templ rewardContent(reward *habitapi.Reward) {
+    <h2 class="p-1 m-1 font-bold">{ reward.Name }</h2>
+    <p class="p-1 m-1">{ reward.Description }</p>
+    <p class="p-1 m-1">{ fmt.Sprintf("%d", reward.PointCost) }</p>
+    <p class="p-1 m-1">{ reward.UserId.Hex() }</p>
+    <button
+        class="p-1 m-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg"
+        hx-delete={ fmt.Sprintf("/rewards/%s", reward.ID.Hex()) }
+        hx-target="closest .rewardsFormList"
+        hx-swap="outerHTML"
+    >Delete</button>
+}
+
 templ RewardsFormList(rewards []*habitapi.Reward) {
     <div id="rewardsFormList" class="p-4 grid grid-cols-1 gap-1">
         <h1 class="text-5xl font-bold mb-5">Rewards</h1>
@@ -39,19 +58,8 @@ templ RewardsFormList(rewards []*habitapi.Reward) {
         </form>
         <ul class="grid grid-cols-4 gap-2">
             for _, reward := range rewards {
-                <li class="border rounded-sm bg-sky-200">
-                    <div>
-                        <h2 class="p-1 m-1 font-bold">{ reward.Name }</h2>
-                        <p class="p-1 m-1">{ reward.Description }</p>
-                        <p class="p-1 m-1">{ fmt.Sprintf("%d", reward.PointCost) }</p>
-                        <p class="p-1 m-1">{ reward.UserId.Hex() }</p>
-                        <button
-                            class="p-1 m-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg"
-                            hx-delete={ fmt.Sprintf("/rewards/%s", reward.ID.Hex()) }
-                            hx-target="closest .rewardsFormList"
-                            hx-swap="outerHTML"
-                        >Delete</button>
-                    </div>
+                <li>
+                    @resourceCard(rewardContent(reward))
                 </li>
             }
         </ul>
